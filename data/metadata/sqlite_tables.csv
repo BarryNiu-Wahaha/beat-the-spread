@@ -1,0 +1,17 @@
+﻿table,row_count,grain,grain_basis,source_path
+common_player_info,3632,Source profile record for a player,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+draft_combine_stats,1633,Player measurements at a draft combine / season,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+draft_history,8257,Player draft selection record,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+game,65698,Game with paired home/away statistics,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+game_info,58053,Game attendance and duration information,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+game_summary,58110,Game scheduling/status summary,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+inactive_players,110191,Player listed inactive for a game,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+line_score,58053,Game with home/away points by period,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+officials,70971,Official assigned to a game,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+other_stats,28271,Game with home/away supplemental statistics,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+play_by_play,13592899,Recorded event within a game,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+player,4815,Historical player identity,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+team,30,Team identity,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+team_details,27,Source snapshot of team details,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+team_history,50,Team city/name history interval,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite
+team_info_common,0,Source team/season summary record,Project interpretation; uniqueness not asserted,data/raw/nba.sqlite

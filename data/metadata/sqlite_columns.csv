@@ -1,0 +1,342 @@
+﻿table,field,declared_type,not_null_declared,primary_key_position,description,definition_basis
+common_player_info,person_id,TEXT,0,0,Source person/player identifier,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,first_name,TEXT,0,0,Source first name,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,last_name,TEXT,0,0,Source last name,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,display_first_last,TEXT,0,0,Source field: display first last. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,display_last_comma_first,TEXT,0,0,Source field: display last comma first. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,display_fi_last,TEXT,0,0,Source field: display fi last. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,player_slug,TEXT,0,0,Source field: player slug. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,birthdate,TIMESTAMP,0,0,Source field: birthdate. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,school,TEXT,0,0,Source field: school. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,country,TEXT,0,0,Source field: country. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,last_affiliation,TEXT,0,0,Source field: last affiliation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,height,TEXT,0,0,Source field: height. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,weight,TEXT,0,0,Source field: weight. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,season_exp,REAL,0,0,Source field: season exp. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,jersey,TEXT,0,0,Source field: jersey. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,position,TEXT,0,0,Source field: position. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,rosterstatus,TEXT,0,0,Source field: rosterstatus. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,games_played_current_season_flag,TEXT,0,0,Source field: games played current season flag. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,team_id,INTEGER,0,0,Historical team identifier,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,team_name,TEXT,0,0,Source field: team name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,team_abbreviation,TEXT,0,0,Source/team short code.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,team_code,TEXT,0,0,Source field: team code. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,team_city,TEXT,0,0,Source field: team city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,playercode,TEXT,0,0,Source field: playercode. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,from_year,REAL,0,0,Source field: from year. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,to_year,REAL,0,0,Source field: to year. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,dleague_flag,TEXT,0,0,Source field: dleague flag. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,nba_flag,TEXT,0,0,Source field: nba flag. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,games_played_flag,TEXT,0,0,Source field: games played flag. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,draft_year,TEXT,0,0,Source field: draft year. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,draft_round,TEXT,0,0,Source field: draft round. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,draft_number,TEXT,0,0,Source field: draft number. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+common_player_info,greatest_75_flag,TEXT,0,0,Source field: greatest 75 flag. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,season,TEXT,0,0,Source field: season. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,player_id,TEXT,0,0,Historical player identifier,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,first_name,TEXT,0,0,Source first name,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,last_name,TEXT,0,0,Source last name,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,player_name,TEXT,0,0,Source field: player name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,position,TEXT,0,0,Source field: position. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,height_wo_shoes,REAL,0,0,Source field: height wo shoes. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,height_wo_shoes_ft_in,TEXT,0,0,Source field: height wo shoes ft in. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,height_w_shoes,REAL,0,0,Source field: height w shoes. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,height_w_shoes_ft_in,TEXT,0,0,Source field: height w shoes ft in. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,weight,TEXT,0,0,Source field: weight. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,wingspan,REAL,0,0,Source field: wingspan. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,wingspan_ft_in,TEXT,0,0,Source field: wingspan ft in. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,standing_reach,REAL,0,0,Source field: standing reach. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,standing_reach_ft_in,TEXT,0,0,Source field: standing reach ft in. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,body_fat_pct,TEXT,0,0,Source field: body fat pct. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,hand_length,TEXT,0,0,Source field: hand length. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,hand_width,TEXT,0,0,Source field: hand width. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,standing_vertical_leap,REAL,0,0,Source field: standing vertical leap. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,max_vertical_leap,REAL,0,0,Source field: max vertical leap. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,lane_agility_time,REAL,0,0,Source field: lane agility time. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,modified_lane_agility_time,REAL,0,0,Source field: modified lane agility time. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,three_quarter_sprint,REAL,0,0,Source field: three quarter sprint. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,bench_press,REAL,0,0,Source field: bench press. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_fifteen_corner_left,TEXT,0,0,Source field: spot fifteen corner left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_fifteen_break_left,TEXT,0,0,Source field: spot fifteen break left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_fifteen_top_key,TEXT,0,0,Source field: spot fifteen top key. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_fifteen_break_right,TEXT,0,0,Source field: spot fifteen break right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_fifteen_corner_right,TEXT,0,0,Source field: spot fifteen corner right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_college_corner_left,TEXT,0,0,Source field: spot college corner left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_college_break_left,TEXT,0,0,Source field: spot college break left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_college_top_key,TEXT,0,0,Source field: spot college top key. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_college_break_right,TEXT,0,0,Source field: spot college break right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_college_corner_right,TEXT,0,0,Source field: spot college corner right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_nba_corner_left,TEXT,0,0,Source field: spot nba corner left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_nba_break_left,TEXT,0,0,Source field: spot nba break left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_nba_top_key,TEXT,0,0,Source field: spot nba top key. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_nba_break_right,TEXT,0,0,Source field: spot nba break right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,spot_nba_corner_right,TEXT,0,0,Source field: spot nba corner right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,off_drib_fifteen_break_left,TEXT,0,0,Source field: off drib fifteen break left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,off_drib_fifteen_top_key,TEXT,0,0,Source field: off drib fifteen top key. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,off_drib_fifteen_break_right,TEXT,0,0,Source field: off drib fifteen break right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,off_drib_college_break_left,TEXT,0,0,Source field: off drib college break left. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,off_drib_college_top_key,TEXT,0,0,Source field: off drib college top key. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,off_drib_college_break_right,TEXT,0,0,Source field: off drib college break right. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,on_move_fifteen,TEXT,0,0,Source field: on move fifteen. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_combine_stats,on_move_college,TEXT,0,0,Source field: on move college. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,person_id,TEXT,0,0,Source person/player identifier,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,player_name,TEXT,0,0,Source field: player name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,season,TEXT,0,0,Source field: season. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,round_number,INTEGER,0,0,Source field: round number. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,round_pick,INTEGER,0,0,Source field: round pick. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,overall_pick,INTEGER,0,0,Source field: overall pick. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,draft_type,TEXT,0,0,Source field: draft type. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,team_id,TEXT,0,0,Historical team identifier,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,team_city,TEXT,0,0,Source field: team city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,team_name,TEXT,0,0,Source field: team name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,team_abbreviation,TEXT,0,0,Source/team short code.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,organization,TEXT,0,0,Source field: organization. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,organization_type,TEXT,0,0,Source field: organization type. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+draft_history,player_profile_flag,TEXT,0,0,Source field: player profile flag. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,season_id,TEXT,0,0,Source season identifier; preserve as text,Project interpretation of source field name; SQL declaration inspected locally
+game,team_id_home,TEXT,0,0,Historical team identifier (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,team_abbreviation_home,TEXT,0,0,Source field: team abbreviation home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,team_name_home,TEXT,0,0,Source field: team name home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+game,game_date,TIMESTAMP,0,0,Source game calendar date; do not infer a UTC tipoff timestamp.,Project interpretation of source field name; SQL declaration inspected locally
+game,matchup_home,TEXT,0,0,Source field: matchup home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,wl_home,TEXT,0,0,Win/loss indicator (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,min,INTEGER,0,0,Minutes as supplied,Project interpretation of source field name; SQL declaration inspected locally
+game,fgm_home,REAL,0,0,Field goals made (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,fga_home,REAL,0,0,Field goals attempted (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg_pct_home,REAL,0,0,Field-goal percentage as supplied (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg3m_home,REAL,0,0,Three-point field goals made (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg3a_home,REAL,0,0,Three-point field goals attempted (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg3_pct_home,REAL,0,0,Three-point percentage as supplied (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,ftm_home,REAL,0,0,Free throws made (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,fta_home,REAL,0,0,Free throws attempted (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,ft_pct_home,REAL,0,0,Free-throw percentage as supplied (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,oreb_home,REAL,0,0,Offensive rebounds (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,dreb_home,REAL,0,0,Defensive rebounds (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,reb_home,REAL,0,0,Rebounds (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,ast_home,REAL,0,0,Assists (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,stl_home,REAL,0,0,Steals (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,blk_home,REAL,0,0,Blocks (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,tov_home,REAL,0,0,Turnovers (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,pf_home,REAL,0,0,Personal fouls (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,pts_home,REAL,0,0,Points (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,plus_minus_home,INTEGER,0,0,Plus/minus as supplied (home team),Project interpretation of source field name; SQL declaration inspected locally
+game,video_available_home,INTEGER,0,0,Source field: video available home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,team_id_away,TEXT,0,0,Historical team identifier (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,team_abbreviation_away,TEXT,0,0,Source field: team abbreviation away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,team_name_away,TEXT,0,0,Source field: team name away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,matchup_away,TEXT,0,0,Source field: matchup away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,wl_away,TEXT,0,0,Win/loss indicator (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,fgm_away,REAL,0,0,Field goals made (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,fga_away,REAL,0,0,Field goals attempted (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg_pct_away,REAL,0,0,Field-goal percentage as supplied (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg3m_away,REAL,0,0,Three-point field goals made (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg3a_away,REAL,0,0,Three-point field goals attempted (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,fg3_pct_away,REAL,0,0,Three-point percentage as supplied (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,ftm_away,REAL,0,0,Free throws made (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,fta_away,REAL,0,0,Free throws attempted (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,ft_pct_away,REAL,0,0,Free-throw percentage as supplied (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,oreb_away,REAL,0,0,Offensive rebounds (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,dreb_away,REAL,0,0,Defensive rebounds (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,reb_away,REAL,0,0,Rebounds (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,ast_away,REAL,0,0,Assists (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,stl_away,REAL,0,0,Steals (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,blk_away,REAL,0,0,Blocks (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,tov_away,REAL,0,0,Turnovers (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,pf_away,REAL,0,0,Personal fouls (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,pts_away,REAL,0,0,Points (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,plus_minus_away,INTEGER,0,0,Plus/minus as supplied (away team),Project interpretation of source field name; SQL declaration inspected locally
+game,video_available_away,INTEGER,0,0,Source field: video available away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game,season_type,TEXT,0,0,Source season category,Project interpretation of source field name; SQL declaration inspected locally
+game_info,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+game_info,game_date,TIMESTAMP,0,0,Source game calendar date; do not infer a UTC tipoff timestamp.,Project interpretation of source field name; SQL declaration inspected locally
+game_info,attendance,INTEGER,0,0,Source field: attendance. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_info,game_time,TEXT,0,0,Source field: game time. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,game_date_est,TIMESTAMP,0,0,Source field: game date est. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,game_sequence,INTEGER,0,0,Source field: game sequence. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,game_status_id,INTEGER,0,0,Source field: game status id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,game_status_text,TEXT,0,0,Source field: game status text. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,gamecode,TEXT,0,0,Source field: gamecode. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,home_team_id,TEXT,0,0,Source field: home team id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,visitor_team_id,TEXT,0,0,Source field: visitor team id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,season,TEXT,0,0,Source field: season. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,live_period,INTEGER,0,0,Source field: live period. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,live_pc_time,TEXT,0,0,Source field: live pc time. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,natl_tv_broadcaster_abbreviation,TEXT,0,0,Source field: natl tv broadcaster abbreviation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,live_period_time_bcast,TEXT,0,0,Source field: live period time bcast. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+game_summary,wh_status,INTEGER,0,0,Source field: wh status. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,player_id,TEXT,0,0,Historical player identifier,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,first_name,TEXT,0,0,Source first name,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,last_name,TEXT,0,0,Source last name,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,jersey_num,TEXT,0,0,Source field: jersey num. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,team_id,TEXT,0,0,Historical team identifier,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,team_city,TEXT,0,0,Source field: team city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,team_name,TEXT,0,0,Source field: team name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+inactive_players,team_abbreviation,TEXT,0,0,Source/team short code.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,game_date_est,TIMESTAMP,0,0,Source field: game date est. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,game_sequence,INTEGER,0,0,Source field: game sequence. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_id_home,TEXT,0,0,Historical team identifier (home team),Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_abbreviation_home,TEXT,0,0,Source field: team abbreviation home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_city_name_home,TEXT,0,0,Source field: team city name home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_nickname_home,TEXT,0,0,Source field: team nickname home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_wins_losses_home,TEXT,0,0,Source field: team wins losses home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr1_home,TEXT,0,0,Source field: pts qtr1 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr2_home,TEXT,0,0,Source field: pts qtr2 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr3_home,TEXT,0,0,Source field: pts qtr3 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr4_home,TEXT,0,0,Source field: pts qtr4 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot1_home,INTEGER,0,0,Source field: pts ot1 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot2_home,INTEGER,0,0,Source field: pts ot2 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot3_home,INTEGER,0,0,Source field: pts ot3 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot4_home,INTEGER,0,0,Source field: pts ot4 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot5_home,INTEGER,0,0,Source field: pts ot5 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot6_home,INTEGER,0,0,Source field: pts ot6 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot7_home,INTEGER,0,0,Source field: pts ot7 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot8_home,INTEGER,0,0,Source field: pts ot8 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot9_home,INTEGER,0,0,Source field: pts ot9 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot10_home,INTEGER,0,0,Source field: pts ot10 home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_home,REAL,0,0,Points (home team),Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_id_away,TEXT,0,0,Historical team identifier (away team),Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_abbreviation_away,TEXT,0,0,Source field: team abbreviation away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_city_name_away,TEXT,0,0,Source field: team city name away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_nickname_away,TEXT,0,0,Source field: team nickname away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,team_wins_losses_away,TEXT,0,0,Source field: team wins losses away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr1_away,INTEGER,0,0,Source field: pts qtr1 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr2_away,TEXT,0,0,Source field: pts qtr2 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr3_away,TEXT,0,0,Source field: pts qtr3 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_qtr4_away,INTEGER,0,0,Source field: pts qtr4 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot1_away,INTEGER,0,0,Source field: pts ot1 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot2_away,INTEGER,0,0,Source field: pts ot2 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot3_away,INTEGER,0,0,Source field: pts ot3 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot4_away,INTEGER,0,0,Source field: pts ot4 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot5_away,INTEGER,0,0,Source field: pts ot5 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot6_away,INTEGER,0,0,Source field: pts ot6 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot7_away,INTEGER,0,0,Source field: pts ot7 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot8_away,INTEGER,0,0,Source field: pts ot8 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot9_away,INTEGER,0,0,Source field: pts ot9 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_ot10_away,INTEGER,0,0,Source field: pts ot10 away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+line_score,pts_away,REAL,0,0,Points (away team),Project interpretation of source field name; SQL declaration inspected locally
+officials,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+officials,official_id,TEXT,0,0,Source field: official id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+officials,first_name,TEXT,0,0,Source first name,Project interpretation of source field name; SQL declaration inspected locally
+officials,last_name,TEXT,0,0,Source last name,Project interpretation of source field name; SQL declaration inspected locally
+officials,jersey_num,TEXT,0,0,Source field: jersey num. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,league_id,TEXT,0,0,Source field: league id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_id_home,TEXT,0,0,Historical team identifier (home team),Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_abbreviation_home,TEXT,0,0,Source field: team abbreviation home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_city_home,TEXT,0,0,Source field: team city home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_paint_home,INTEGER,0,0,Source field: pts paint home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_2nd_chance_home,INTEGER,0,0,Source field: pts 2nd chance home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_fb_home,INTEGER,0,0,Source field: pts fb home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,largest_lead_home,INTEGER,0,0,Source field: largest lead home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,lead_changes,INTEGER,0,0,Source field: lead changes. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,times_tied,INTEGER,0,0,Source field: times tied. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_turnovers_home,INTEGER,0,0,Source field: team turnovers home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,total_turnovers_home,INTEGER,0,0,Source field: total turnovers home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_rebounds_home,INTEGER,0,0,Source field: team rebounds home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_off_to_home,INTEGER,0,0,Source field: pts off to home. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_id_away,TEXT,0,0,Historical team identifier (away team),Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_abbreviation_away,TEXT,0,0,Source field: team abbreviation away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_city_away,TEXT,0,0,Source field: team city away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_paint_away,INTEGER,0,0,Source field: pts paint away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_2nd_chance_away,INTEGER,0,0,Source field: pts 2nd chance away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_fb_away,INTEGER,0,0,Source field: pts fb away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,largest_lead_away,INTEGER,0,0,Source field: largest lead away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_turnovers_away,INTEGER,0,0,Source field: team turnovers away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,total_turnovers_away,INTEGER,0,0,Source field: total turnovers away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,team_rebounds_away,INTEGER,0,0,Source field: team rebounds away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+other_stats,pts_off_to_away,INTEGER,0,0,Source field: pts off to away. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,game_id,TEXT,0,0,Historical NBA game identifier; preserve leading zeros,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,eventnum,INTEGER,0,0,Source event sequence number within a game,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,eventmsgtype,INTEGER,0,0,Source event-type code; codebook not included,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,eventmsgactiontype,INTEGER,0,0,Source event action code; codebook not included,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,period,INTEGER,0,0,Game period number,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,wctimestring,TEXT,0,0,Source wall-clock text; timezone not asserted,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,pctimestring,TEXT,0,0,Source period clock text,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,homedescription,TEXT,0,0,Home event description,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,neutraldescription,TEXT,0,0,Neutral event description,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,visitordescription,TEXT,0,0,Visitor event description,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,score,TEXT,0,0,Source score text at event time,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,scoremargin,TEXT,0,0,Source score-margin text; do not infer sign convention without checking,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,person1type,REAL,0,0,Source field: person1type. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player1_id,TEXT,0,0,Source field: player1 id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player1_name,TEXT,0,0,Source field: player1 name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player1_team_id,TEXT,0,0,Source field: player1 team id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player1_team_city,TEXT,0,0,Source field: player1 team city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player1_team_nickname,TEXT,0,0,Source field: player1 team nickname. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player1_team_abbreviation,TEXT,0,0,Source field: player1 team abbreviation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,person2type,REAL,0,0,Source field: person2type. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player2_id,TEXT,0,0,Source field: player2 id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player2_name,TEXT,0,0,Source field: player2 name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player2_team_id,TEXT,0,0,Source field: player2 team id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player2_team_city,TEXT,0,0,Source field: player2 team city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player2_team_nickname,TEXT,0,0,Source field: player2 team nickname. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player2_team_abbreviation,TEXT,0,0,Source field: player2 team abbreviation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,person3type,REAL,0,0,Source field: person3type. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player3_id,TEXT,0,0,Source field: player3 id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player3_name,TEXT,0,0,Source field: player3 name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player3_team_id,TEXT,0,0,Source field: player3 team id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player3_team_city,TEXT,0,0,Source field: player3 team city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player3_team_nickname,TEXT,0,0,Source field: player3 team nickname. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,player3_team_abbreviation,TEXT,0,0,Source field: player3 team abbreviation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+play_by_play,video_available_flag,TEXT,0,0,Source field: video available flag. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+player,id,TEXT,0,0,Historical player identifier; preserve as text.,Project interpretation of source field name; SQL declaration inspected locally
+player,full_name,TEXT,0,0,Source full display name,Project interpretation of source field name; SQL declaration inspected locally
+player,first_name,TEXT,0,0,Source first name,Project interpretation of source field name; SQL declaration inspected locally
+player,last_name,TEXT,0,0,Source last name,Project interpretation of source field name; SQL declaration inspected locally
+player,is_active,INTEGER,0,0,"Historical source activity flag, not present-day status",Project interpretation of source field name; SQL declaration inspected locally
+team,id,TEXT,0,0,Historical team identifier; preserve as text.,Project interpretation of source field name; SQL declaration inspected locally
+team,full_name,TEXT,0,0,Source full display name,Project interpretation of source field name; SQL declaration inspected locally
+team,abbreviation,TEXT,0,0,Source field: abbreviation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team,nickname,TEXT,0,0,Source field: nickname. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team,city,TEXT,0,0,Source field: city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team,state,TEXT,0,0,Source field: state. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team,year_founded,REAL,0,0,Source field: year founded. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,team_id,TEXT,0,0,Historical team identifier,Project interpretation of source field name; SQL declaration inspected locally
+team_details,abbreviation,TEXT,0,0,Source field: abbreviation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,nickname,TEXT,0,0,Source field: nickname. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,yearfounded,REAL,0,0,Source field: yearfounded. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,city,TEXT,0,0,Source field: city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,arena,TEXT,0,0,Source field: arena. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,arenacapacity,REAL,0,0,Source field: arenacapacity. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,owner,TEXT,0,0,Source field: owner. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,generalmanager,TEXT,0,0,Source field: generalmanager. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,headcoach,TEXT,0,0,Source field: headcoach. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,dleagueaffiliation,TEXT,0,0,Source field: dleagueaffiliation. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,facebook,TEXT,0,0,Source field: facebook. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,instagram,TEXT,0,0,Source field: instagram. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_details,twitter,TEXT,0,0,Source field: twitter. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_history,team_id,TEXT,0,0,Historical team identifier,Project interpretation of source field name; SQL declaration inspected locally
+team_history,city,TEXT,0,0,Source field: city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_history,nickname,TEXT,0,0,Source field: nickname. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_history,year_founded,INTEGER,0,0,Source field: year founded. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_history,year_active_till,INTEGER,0,0,Source field: year active till. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_id,TEXT,0,0,Historical team identifier,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,season_year,TEXT,0,0,Source field: season year. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_city,TEXT,0,0,Source field: team city. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_name,TEXT,0,0,Source field: team name. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_abbreviation,TEXT,0,0,Source/team short code.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_conference,TEXT,0,0,Source field: team conference. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_division,TEXT,0,0,Source field: team division. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_code,TEXT,0,0,Source field: team code. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,team_slug,TEXT,0,0,Source field: team slug. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,w,INTEGER,0,0,Source field: w. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,l,INTEGER,0,0,Source field: l. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,pct,REAL,0,0,Source field: pct. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,conf_rank,INTEGER,0,0,Source field: conf rank. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,div_rank,INTEGER,0,0,Source field: div rank. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,min_year,INTEGER,0,0,Source field: min year. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,max_year,INTEGER,0,0,Source field: max year. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,league_id,TEXT,0,0,Source field: league id. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,season_id,TEXT,0,0,Source season identifier; preserve as text,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,pts_rank,INTEGER,0,0,Source field: pts rank. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,pts_pg,REAL,0,0,Source field: pts pg. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,reb_rank,INTEGER,0,0,Source field: reb rank. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,reb_pg,REAL,0,0,Source field: reb pg. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,ast_rank,INTEGER,0,0,Source field: ast rank. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,ast_pg,REAL,0,0,Source field: ast pg. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,opp_pts_rank,INTEGER,0,0,Source field: opp pts rank. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally
+team_info_common,opp_pts_pg,REAL,0,0,Source field: opp pts pg. Detailed upstream semantics/units not verified.,Project interpretation of source field name; SQL declaration inspected locally

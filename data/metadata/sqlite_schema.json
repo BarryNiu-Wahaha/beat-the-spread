@@ -1,0 +1,2850 @@
+{
+  "inspected_at_utc": "2026-11-19T20:50:49.391450+00:00",
+  "source": "data/raw/nba.sqlite",
+  "game_date_range": [
+    "1946-11-01 00:00:00",
+    "2023-06-12 00:00:00"
+  ],
+  "tables": {
+    "common_player_info": {
+      "create_sql": "CREATE TABLE \"common_player_info\" (\n\"person_id\" TEXT,\n  \"first_name\" TEXT,\n  \"last_name\" TEXT,\n  \"display_first_last\" TEXT,\n  \"display_last_comma_first\" TEXT,\n  \"display_fi_last\" TEXT,\n  \"player_slug\" TEXT,\n  \"birthdate\" TIMESTAMP,\n  \"school\" TEXT,\n  \"country\" TEXT,\n  \"last_affiliation\" TEXT,\n  \"height\" TEXT,\n  \"weight\" TEXT,\n  \"season_exp\" REAL,\n  \"jersey\" TEXT,\n  \"position\" TEXT,\n  \"rosterstatus\" TEXT,\n  \"games_played_current_season_flag\" TEXT,\n  \"team_id\" INTEGER,\n  \"team_name\" TEXT,\n  \"team_abbreviation\" TEXT,\n  \"team_code\" TEXT,\n  \"team_city\" TEXT,\n  \"playercode\" TEXT,\n  \"from_year\" REAL,\n  \"to_year\" REAL,\n  \"dleague_flag\" TEXT,\n  \"nba_flag\" TEXT,\n  \"games_played_flag\" TEXT,\n  \"draft_year\" TEXT,\n  \"draft_round\" TEXT,\n  \"draft_number\" TEXT,\n  \"greatest_75_flag\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "person_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "first_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "last_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "display_first_last",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "display_last_comma_first",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "display_fi_last",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "player_slug",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "birthdate",
+          "declared_type": "TIMESTAMP",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "school",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "country",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "last_affiliation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "height",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "weight",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "season_exp",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 14,
+          "name": "jersey",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 15,
+          "name": "position",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 16,
+          "name": "rosterstatus",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 17,
+          "name": "games_played_current_season_flag",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 18,
+          "name": "team_id",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 19,
+          "name": "team_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 20,
+          "name": "team_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 21,
+          "name": "team_code",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 22,
+          "name": "team_city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 23,
+          "name": "playercode",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 24,
+          "name": "from_year",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 25,
+          "name": "to_year",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 26,
+          "name": "dleague_flag",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 27,
+          "name": "nba_flag",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 28,
+          "name": "games_played_flag",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 29,
+          "name": "draft_year",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 30,
+          "name": "draft_round",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 31,
+          "name": "draft_number",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 32,
+          "name": "greatest_75_flag",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "draft_combine_stats": {
+      "create_sql": "CREATE TABLE \"draft_combine_stats\" (\n\"season\" TEXT,\n  \"player_id\" TEXT,\n  \"first_name\" TEXT,\n  \"last_name\" TEXT,\n  \"player_name\" TEXT,\n  \"position\" TEXT,\n  \"height_wo_shoes\" REAL,\n  \"height_wo_shoes_ft_in\" TEXT,\n  \"height_w_shoes\" REAL,\n  \"height_w_shoes_ft_in\" TEXT,\n  \"weight\" TEXT,\n  \"wingspan\" REAL,\n  \"wingspan_ft_in\" TEXT,\n  \"standing_reach\" REAL,\n  \"standing_reach_ft_in\" TEXT,\n  \"body_fat_pct\" TEXT,\n  \"hand_length\" TEXT,\n  \"hand_width\" TEXT,\n  \"standing_vertical_leap\" REAL,\n  \"max_vertical_leap\" REAL,\n  \"lane_agility_time\" REAL,\n  \"modified_lane_agility_time\" REAL,\n  \"three_quarter_sprint\" REAL,\n  \"bench_press\" REAL,\n  \"spot_fifteen_corner_left\" TEXT,\n  \"spot_fifteen_break_left\" TEXT,\n  \"spot_fifteen_top_key\" TEXT,\n  \"spot_fifteen_break_right\" TEXT,\n  \"spot_fifteen_corner_right\" TEXT,\n  \"spot_college_corner_left\" TEXT,\n  \"spot_college_break_left\" TEXT,\n  \"spot_college_top_key\" TEXT,\n  \"spot_college_break_right\" TEXT,\n  \"spot_college_corner_right\" TEXT,\n  \"spot_nba_corner_left\" TEXT,\n  \"spot_nba_break_left\" TEXT,\n  \"spot_nba_top_key\" TEXT,\n  \"spot_nba_break_right\" TEXT,\n  \"spot_nba_corner_right\" TEXT,\n  \"off_drib_fifteen_break_left\" TEXT,\n  \"off_drib_fifteen_top_key\" TEXT,\n  \"off_drib_fifteen_break_right\" TEXT,\n  \"off_drib_college_break_left\" TEXT,\n  \"off_drib_college_top_key\" TEXT,\n  \"off_drib_college_break_right\" TEXT,\n  \"on_move_fifteen\" TEXT,\n  \"on_move_college\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "season",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "player_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "first_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "last_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "player_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "position",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "height_wo_shoes",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "height_wo_shoes_ft_in",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "height_w_shoes",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "height_w_shoes_ft_in",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "weight",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "wingspan",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "wingspan_ft_in",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "standing_reach",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 14,
+          "name": "standing_reach_ft_in",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 15,
+          "name": "body_fat_pct",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 16,
+          "name": "hand_length",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 17,
+          "name": "hand_width",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 18,
+          "name": "standing_vertical_leap",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 19,
+          "name": "max_vertical_leap",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 20,
+          "name": "lane_agility_time",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 21,
+          "name": "modified_lane_agility_time",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 22,
+          "name": "three_quarter_sprint",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 23,
+          "name": "bench_press",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 24,
+          "name": "spot_fifteen_corner_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 25,
+          "name": "spot_fifteen_break_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 26,
+          "name": "spot_fifteen_top_key",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 27,
+          "name": "spot_fifteen_break_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 28,
+          "name": "spot_fifteen_corner_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 29,
+          "name": "spot_college_corner_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 30,
+          "name": "spot_college_break_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 31,
+          "name": "spot_college_top_key",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 32,
+          "name": "spot_college_break_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 33,
+          "name": "spot_college_corner_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 34,
+          "name": "spot_nba_corner_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 35,
+          "name": "spot_nba_break_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 36,
+          "name": "spot_nba_top_key",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 37,
+          "name": "spot_nba_break_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 38,
+          "name": "spot_nba_corner_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 39,
+          "name": "off_drib_fifteen_break_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 40,
+          "name": "off_drib_fifteen_top_key",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 41,
+          "name": "off_drib_fifteen_break_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 42,
+          "name": "off_drib_college_break_left",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 43,
+          "name": "off_drib_college_top_key",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 44,
+          "name": "off_drib_college_break_right",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 45,
+          "name": "on_move_fifteen",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 46,
+          "name": "on_move_college",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "draft_history": {
+      "create_sql": "CREATE TABLE \"draft_history\" (\n\"person_id\" TEXT,\n  \"player_name\" TEXT,\n  \"season\" TEXT,\n  \"round_number\" INTEGER,\n  \"round_pick\" INTEGER,\n  \"overall_pick\" INTEGER,\n  \"draft_type\" TEXT,\n  \"team_id\" TEXT,\n  \"team_city\" TEXT,\n  \"team_name\" TEXT,\n  \"team_abbreviation\" TEXT,\n  \"organization\" TEXT,\n  \"organization_type\" TEXT,\n  \"player_profile_flag\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "person_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "player_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "season",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "round_number",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "round_pick",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "overall_pick",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "draft_type",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "team_city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "team_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "team_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "organization",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "organization_type",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "player_profile_flag",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "game": {
+      "create_sql": "CREATE TABLE \"game\" (\n\"season_id\" TEXT,\n  \"team_id_home\" TEXT,\n  \"team_abbreviation_home\" TEXT,\n  \"team_name_home\" TEXT,\n  \"game_id\" TEXT,\n  \"game_date\" TIMESTAMP,\n  \"matchup_home\" TEXT,\n  \"wl_home\" TEXT,\n  \"min\" INTEGER,\n  \"fgm_home\" REAL,\n  \"fga_home\" REAL,\n  \"fg_pct_home\" REAL,\n  \"fg3m_home\" REAL,\n  \"fg3a_home\" REAL,\n  \"fg3_pct_home\" REAL,\n  \"ftm_home\" REAL,\n  \"fta_home\" REAL,\n  \"ft_pct_home\" REAL,\n  \"oreb_home\" REAL,\n  \"dreb_home\" REAL,\n  \"reb_home\" REAL,\n  \"ast_home\" REAL,\n  \"stl_home\" REAL,\n  \"blk_home\" REAL,\n  \"tov_home\" REAL,\n  \"pf_home\" REAL,\n  \"pts_home\" REAL,\n  \"plus_minus_home\" INTEGER,\n  \"video_available_home\" INTEGER,\n  \"team_id_away\" TEXT,\n  \"team_abbreviation_away\" TEXT,\n  \"team_name_away\" TEXT,\n  \"matchup_away\" TEXT,\n  \"wl_away\" TEXT,\n  \"fgm_away\" REAL,\n  \"fga_away\" REAL,\n  \"fg_pct_away\" REAL,\n  \"fg3m_away\" REAL,\n  \"fg3a_away\" REAL,\n  \"fg3_pct_away\" REAL,\n  \"ftm_away\" REAL,\n  \"fta_away\" REAL,\n  \"ft_pct_away\" REAL,\n  \"oreb_away\" REAL,\n  \"dreb_away\" REAL,\n  \"reb_away\" REAL,\n  \"ast_away\" REAL,\n  \"stl_away\" REAL,\n  \"blk_away\" REAL,\n  \"tov_away\" REAL,\n  \"pf_away\" REAL,\n  \"pts_away\" REAL,\n  \"plus_minus_away\" INTEGER,\n  \"video_available_away\" INTEGER,\n  \"season_type\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "season_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "team_id_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "team_abbreviation_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "team_name_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "game_date",
+          "declared_type": "TIMESTAMP",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "matchup_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "wl_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "min",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "fgm_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "fga_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "fg_pct_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "fg3m_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "fg3a_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 14,
+          "name": "fg3_pct_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 15,
+          "name": "ftm_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 16,
+          "name": "fta_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 17,
+          "name": "ft_pct_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 18,
+          "name": "oreb_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 19,
+          "name": "dreb_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 20,
+          "name": "reb_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 21,
+          "name": "ast_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 22,
+          "name": "stl_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 23,
+          "name": "blk_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 24,
+          "name": "tov_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 25,
+          "name": "pf_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 26,
+          "name": "pts_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 27,
+          "name": "plus_minus_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 28,
+          "name": "video_available_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 29,
+          "name": "team_id_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 30,
+          "name": "team_abbreviation_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 31,
+          "name": "team_name_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 32,
+          "name": "matchup_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 33,
+          "name": "wl_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 34,
+          "name": "fgm_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 35,
+          "name": "fga_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 36,
+          "name": "fg_pct_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 37,
+          "name": "fg3m_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 38,
+          "name": "fg3a_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 39,
+          "name": "fg3_pct_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 40,
+          "name": "ftm_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 41,
+          "name": "fta_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 42,
+          "name": "ft_pct_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 43,
+          "name": "oreb_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 44,
+          "name": "dreb_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 45,
+          "name": "reb_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 46,
+          "name": "ast_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 47,
+          "name": "stl_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 48,
+          "name": "blk_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 49,
+          "name": "tov_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 50,
+          "name": "pf_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 51,
+          "name": "pts_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 52,
+          "name": "plus_minus_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 53,
+          "name": "video_available_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 54,
+          "name": "season_type",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "game_info": {
+      "create_sql": "CREATE TABLE \"game_info\" (\n\"game_id\" TEXT,\n  \"game_date\" TIMESTAMP,\n  \"attendance\" INTEGER,\n  \"game_time\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "game_date",
+          "declared_type": "TIMESTAMP",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "attendance",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "game_time",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "game_summary": {
+      "create_sql": "CREATE TABLE \"game_summary\" (\n\"game_date_est\" TIMESTAMP,\n  \"game_sequence\" INTEGER,\n  \"game_id\" TEXT,\n  \"game_status_id\" INTEGER,\n  \"game_status_text\" TEXT,\n  \"gamecode\" TEXT,\n  \"home_team_id\" TEXT,\n  \"visitor_team_id\" TEXT,\n  \"season\" TEXT,\n  \"live_period\" INTEGER,\n  \"live_pc_time\" TEXT,\n  \"natl_tv_broadcaster_abbreviation\" TEXT,\n  \"live_period_time_bcast\" TEXT,\n  \"wh_status\" INTEGER\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "game_date_est",
+          "declared_type": "TIMESTAMP",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "game_sequence",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "game_status_id",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "game_status_text",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "gamecode",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "home_team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "visitor_team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "season",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "live_period",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "live_pc_time",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "natl_tv_broadcaster_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "live_period_time_bcast",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "wh_status",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "inactive_players": {
+      "create_sql": "CREATE TABLE \"inactive_players\" (\n\"game_id\" TEXT,\n  \"player_id\" TEXT,\n  \"first_name\" TEXT,\n  \"last_name\" TEXT,\n  \"jersey_num\" TEXT,\n  \"team_id\" TEXT,\n  \"team_city\" TEXT,\n  \"team_name\" TEXT,\n  \"team_abbreviation\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "player_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "first_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "last_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "jersey_num",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "team_city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "team_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "team_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "line_score": {
+      "create_sql": "CREATE TABLE \"line_score\" (\n\"game_date_est\" TIMESTAMP,\n  \"game_sequence\" INTEGER,\n  \"game_id\" TEXT,\n  \"team_id_home\" TEXT,\n  \"team_abbreviation_home\" TEXT,\n  \"team_city_name_home\" TEXT,\n  \"team_nickname_home\" TEXT,\n  \"team_wins_losses_home\" TEXT,\n  \"pts_qtr1_home\" TEXT,\n  \"pts_qtr2_home\" TEXT,\n  \"pts_qtr3_home\" TEXT,\n  \"pts_qtr4_home\" TEXT,\n  \"pts_ot1_home\" INTEGER,\n  \"pts_ot2_home\" INTEGER,\n  \"pts_ot3_home\" INTEGER,\n  \"pts_ot4_home\" INTEGER,\n  \"pts_ot5_home\" INTEGER,\n  \"pts_ot6_home\" INTEGER,\n  \"pts_ot7_home\" INTEGER,\n  \"pts_ot8_home\" INTEGER,\n  \"pts_ot9_home\" INTEGER,\n  \"pts_ot10_home\" INTEGER,\n  \"pts_home\" REAL,\n  \"team_id_away\" TEXT,\n  \"team_abbreviation_away\" TEXT,\n  \"team_city_name_away\" TEXT,\n  \"team_nickname_away\" TEXT,\n  \"team_wins_losses_away\" TEXT,\n  \"pts_qtr1_away\" INTEGER,\n  \"pts_qtr2_away\" TEXT,\n  \"pts_qtr3_away\" TEXT,\n  \"pts_qtr4_away\" INTEGER,\n  \"pts_ot1_away\" INTEGER,\n  \"pts_ot2_away\" INTEGER,\n  \"pts_ot3_away\" INTEGER,\n  \"pts_ot4_away\" INTEGER,\n  \"pts_ot5_away\" INTEGER,\n  \"pts_ot6_away\" INTEGER,\n  \"pts_ot7_away\" INTEGER,\n  \"pts_ot8_away\" INTEGER,\n  \"pts_ot9_away\" INTEGER,\n  \"pts_ot10_away\" INTEGER,\n  \"pts_away\" REAL\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "game_date_est",
+          "declared_type": "TIMESTAMP",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "game_sequence",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "team_id_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "team_abbreviation_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "team_city_name_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "team_nickname_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "team_wins_losses_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "pts_qtr1_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "pts_qtr2_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "pts_qtr3_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "pts_qtr4_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "pts_ot1_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "pts_ot2_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 14,
+          "name": "pts_ot3_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 15,
+          "name": "pts_ot4_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 16,
+          "name": "pts_ot5_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 17,
+          "name": "pts_ot6_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 18,
+          "name": "pts_ot7_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 19,
+          "name": "pts_ot8_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 20,
+          "name": "pts_ot9_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 21,
+          "name": "pts_ot10_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 22,
+          "name": "pts_home",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 23,
+          "name": "team_id_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 24,
+          "name": "team_abbreviation_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 25,
+          "name": "team_city_name_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 26,
+          "name": "team_nickname_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 27,
+          "name": "team_wins_losses_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 28,
+          "name": "pts_qtr1_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 29,
+          "name": "pts_qtr2_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 30,
+          "name": "pts_qtr3_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 31,
+          "name": "pts_qtr4_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 32,
+          "name": "pts_ot1_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 33,
+          "name": "pts_ot2_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 34,
+          "name": "pts_ot3_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 35,
+          "name": "pts_ot4_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 36,
+          "name": "pts_ot5_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 37,
+          "name": "pts_ot6_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 38,
+          "name": "pts_ot7_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 39,
+          "name": "pts_ot8_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 40,
+          "name": "pts_ot9_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 41,
+          "name": "pts_ot10_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 42,
+          "name": "pts_away",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "officials": {
+      "create_sql": "CREATE TABLE \"officials\" (\n\"game_id\" TEXT,\n  \"official_id\" TEXT,\n  \"first_name\" TEXT,\n  \"last_name\" TEXT,\n  \"jersey_num\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "official_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "first_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "last_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "jersey_num",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "other_stats": {
+      "create_sql": "CREATE TABLE \"other_stats\" (\n\"game_id\" TEXT,\n  \"league_id\" TEXT,\n  \"team_id_home\" TEXT,\n  \"team_abbreviation_home\" TEXT,\n  \"team_city_home\" TEXT,\n  \"pts_paint_home\" INTEGER,\n  \"pts_2nd_chance_home\" INTEGER,\n  \"pts_fb_home\" INTEGER,\n  \"largest_lead_home\" INTEGER,\n  \"lead_changes\" INTEGER,\n  \"times_tied\" INTEGER,\n  \"team_turnovers_home\" INTEGER,\n  \"total_turnovers_home\" INTEGER,\n  \"team_rebounds_home\" INTEGER,\n  \"pts_off_to_home\" INTEGER,\n  \"team_id_away\" TEXT,\n  \"team_abbreviation_away\" TEXT,\n  \"team_city_away\" TEXT,\n  \"pts_paint_away\" INTEGER,\n  \"pts_2nd_chance_away\" INTEGER,\n  \"pts_fb_away\" INTEGER,\n  \"largest_lead_away\" INTEGER,\n  \"team_turnovers_away\" INTEGER,\n  \"total_turnovers_away\" INTEGER,\n  \"team_rebounds_away\" INTEGER,\n  \"pts_off_to_away\" INTEGER\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "league_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "team_id_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "team_abbreviation_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "team_city_home",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "pts_paint_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "pts_2nd_chance_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "pts_fb_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "largest_lead_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "lead_changes",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "times_tied",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "team_turnovers_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "total_turnovers_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "team_rebounds_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 14,
+          "name": "pts_off_to_home",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 15,
+          "name": "team_id_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 16,
+          "name": "team_abbreviation_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 17,
+          "name": "team_city_away",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 18,
+          "name": "pts_paint_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 19,
+          "name": "pts_2nd_chance_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 20,
+          "name": "pts_fb_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 21,
+          "name": "largest_lead_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 22,
+          "name": "team_turnovers_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 23,
+          "name": "total_turnovers_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 24,
+          "name": "team_rebounds_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 25,
+          "name": "pts_off_to_away",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "play_by_play": {
+      "create_sql": "CREATE TABLE \"play_by_play\" (\n\"game_id\" TEXT,\n  \"eventnum\" INTEGER,\n  \"eventmsgtype\" INTEGER,\n  \"eventmsgactiontype\" INTEGER,\n  \"period\" INTEGER,\n  \"wctimestring\" TEXT,\n  \"pctimestring\" TEXT,\n  \"homedescription\" TEXT,\n  \"neutraldescription\" TEXT,\n  \"visitordescription\" TEXT,\n  \"score\" TEXT,\n  \"scoremargin\" TEXT,\n  \"person1type\" REAL,\n  \"player1_id\" TEXT,\n  \"player1_name\" TEXT,\n  \"player1_team_id\" TEXT,\n  \"player1_team_city\" TEXT,\n  \"player1_team_nickname\" TEXT,\n  \"player1_team_abbreviation\" TEXT,\n  \"person2type\" REAL,\n  \"player2_id\" TEXT,\n  \"player2_name\" TEXT,\n  \"player2_team_id\" TEXT,\n  \"player2_team_city\" TEXT,\n  \"player2_team_nickname\" TEXT,\n  \"player2_team_abbreviation\" TEXT,\n  \"person3type\" REAL,\n  \"player3_id\" TEXT,\n  \"player3_name\" TEXT,\n  \"player3_team_id\" TEXT,\n  \"player3_team_city\" TEXT,\n  \"player3_team_nickname\" TEXT,\n  \"player3_team_abbreviation\" TEXT,\n  \"video_available_flag\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "game_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "eventnum",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "eventmsgtype",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "eventmsgactiontype",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "period",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "wctimestring",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "pctimestring",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "homedescription",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "neutraldescription",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "visitordescription",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "score",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "scoremargin",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "person1type",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "player1_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 14,
+          "name": "player1_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 15,
+          "name": "player1_team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 16,
+          "name": "player1_team_city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 17,
+          "name": "player1_team_nickname",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 18,
+          "name": "player1_team_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 19,
+          "name": "person2type",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 20,
+          "name": "player2_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 21,
+          "name": "player2_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 22,
+          "name": "player2_team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 23,
+          "name": "player2_team_city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 24,
+          "name": "player2_team_nickname",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 25,
+          "name": "player2_team_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 26,
+          "name": "person3type",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 27,
+          "name": "player3_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 28,
+          "name": "player3_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 29,
+          "name": "player3_team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 30,
+          "name": "player3_team_city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 31,
+          "name": "player3_team_nickname",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 32,
+          "name": "player3_team_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 33,
+          "name": "video_available_flag",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "player": {
+      "create_sql": "CREATE TABLE \"player\" (\n\"id\" TEXT,\n  \"full_name\" TEXT,\n  \"first_name\" TEXT,\n  \"last_name\" TEXT,\n  \"is_active\" INTEGER\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "full_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "first_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "last_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "is_active",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "team": {
+      "create_sql": "CREATE TABLE \"team\" (\n\"id\" TEXT,\n  \"full_name\" TEXT,\n  \"abbreviation\" TEXT,\n  \"nickname\" TEXT,\n  \"city\" TEXT,\n  \"state\" TEXT,\n  \"year_founded\" REAL\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "full_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "nickname",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "state",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "year_founded",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "team_details": {
+      "create_sql": "CREATE TABLE \"team_details\" (\n\"team_id\" TEXT,\n  \"abbreviation\" TEXT,\n  \"nickname\" TEXT,\n  \"yearfounded\" REAL,\n  \"city\" TEXT,\n  \"arena\" TEXT,\n  \"arenacapacity\" REAL,\n  \"owner\" TEXT,\n  \"generalmanager\" TEXT,\n  \"headcoach\" TEXT,\n  \"dleagueaffiliation\" TEXT,\n  \"facebook\" TEXT,\n  \"instagram\" TEXT,\n  \"twitter\" TEXT\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "nickname",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "yearfounded",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "arena",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "arenacapacity",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "owner",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "generalmanager",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "headcoach",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "dleagueaffiliation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "facebook",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "instagram",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "twitter",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "team_history": {
+      "create_sql": "CREATE TABLE \"team_history\" (\n\"team_id\" TEXT,\n  \"city\" TEXT,\n  \"nickname\" TEXT,\n  \"year_founded\" INTEGER,\n  \"year_active_till\" INTEGER\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "nickname",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "year_founded",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "year_active_till",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    },
+    "team_info_common": {
+      "create_sql": "CREATE TABLE \"team_info_common\" (\n\"team_id\" TEXT,\n  \"season_year\" TEXT,\n  \"team_city\" TEXT,\n  \"team_name\" TEXT,\n  \"team_abbreviation\" TEXT,\n  \"team_conference\" TEXT,\n  \"team_division\" TEXT,\n  \"team_code\" TEXT,\n  \"team_slug\" TEXT,\n  \"w\" INTEGER,\n  \"l\" INTEGER,\n  \"pct\" REAL,\n  \"conf_rank\" INTEGER,\n  \"div_rank\" INTEGER,\n  \"min_year\" INTEGER,\n  \"max_year\" INTEGER,\n  \"league_id\" TEXT,\n  \"season_id\" TEXT,\n  \"pts_rank\" INTEGER,\n  \"pts_pg\" REAL,\n  \"reb_rank\" INTEGER,\n  \"reb_pg\" REAL,\n  \"ast_rank\" INTEGER,\n  \"ast_pg\" REAL,\n  \"opp_pts_rank\" INTEGER,\n  \"opp_pts_pg\" REAL\n)",
+      "columns": [
+        {
+          "cid": 0,
+          "name": "team_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 1,
+          "name": "season_year",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 2,
+          "name": "team_city",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 3,
+          "name": "team_name",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 4,
+          "name": "team_abbreviation",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 5,
+          "name": "team_conference",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 6,
+          "name": "team_division",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 7,
+          "name": "team_code",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 8,
+          "name": "team_slug",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 9,
+          "name": "w",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 10,
+          "name": "l",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 11,
+          "name": "pct",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 12,
+          "name": "conf_rank",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 13,
+          "name": "div_rank",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 14,
+          "name": "min_year",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 15,
+          "name": "max_year",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 16,
+          "name": "league_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 17,
+          "name": "season_id",
+          "declared_type": "TEXT",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 18,
+          "name": "pts_rank",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 19,
+          "name": "pts_pg",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 20,
+          "name": "reb_rank",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 21,
+          "name": "reb_pg",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 22,
+          "name": "ast_rank",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 23,
+          "name": "ast_pg",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 24,
+          "name": "opp_pts_rank",
+          "declared_type": "INTEGER",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        },
+        {
+          "cid": 25,
+          "name": "opp_pts_pg",
+          "declared_type": "REAL",
+          "not_null": 0,
+          "default": null,
+          "primary_key_position": 0
+        }
+      ],
+      "foreign_keys": [],
+      "indexes": []
+    }
+  }
+}

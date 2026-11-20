@@ -1,0 +1,115 @@
+Group Project: Proposal
+原始页面: https://emory.instructure.com/courses/165397/assignments/1261019
+Canvas ID: 1261019 · Due (UTC): 2026-11-04T04:59:59Z · Points: 0
+
+This is an ungraded (0 point) submission to ensure you have started thinking about the class project.
+Group Project Proposal: Enterprise Data and Analytics Platform
+Project Goal
+Select a
+large organization
+and design an end-to-end data and analytics platform for that organization.
+Your project should represent the types of data the organization would need for:
+daily operations;
+products/services;
+decision-making; and
+a new business application or analytical capability.
+Your architecture should include
+RDBMS, NoSQL, big-data processing, a data warehouse, analytics, and RAG/Generative AI
+. Each technology should have a clear purpose based on the data and business need.
+The final system will be developed and tested locally, but must also be
+deployed on AWS as a working production application
+.
+Initial Proposal.
+Submit a maximum two-page tentative proposal containing:
+1. Organization and Business Opportunity
+Select a large organization.
+Briefly describe its major data needs.
+Identify a
+new business application, analytical capability, or decision problem
+your project will support.
+Explain why this capability would be valuable to the organization.
+Your organization should generally remain the same after the proposal, although your data and architecture may evolve.
+2. Data Sources
+Identify the major datasets you expect to use.
+For each dataset, briefly describe:
+source/link;
+type of data;
+approximate size;
+structured, semi-structured, or unstructured format; and
+how the organization would use it.
+Use public or institutionally available datasets such as Kaggle, data.gov, company/open-data sources, APIs, web-scraped data, or Emory data resources.
+(e.g.,Citi Bikers rental subscription data: https://ride.citibikenyc.com/system-data). You are welcome to look for datasets on kaggle.com, data.gov, or scrape online data.
+You can also explore some of the paid datasets available to Emory students:
+GBL Resources (Big Data) Fall 2023.docx
+Your project should include
+at least one dataset with more than 1 million records
+.
+You may generate some synthetic data when suitable real data is unavailable, but the project should include substantial real-world data. You can lose points for overusing synthetic data.
+3. Tentative Data Architecture
+Provide a simple architecture diagram showing how you expect to use:
+MySQL / RDBMS
+for appropriate operational data;
+one or more
+NoSQL databases
+for appropriate semi-structured, key-value, document, or large-scale data;
+Hadoop/HDFS and/or Spark
+, where appropriate;
+an
+ETL/ELT pipeline
+;
+a
+Star or Snowflake data warehouse
+;
+a
+vector database
+such as ChromaDB or Qdrant;
+Streamlit
+for the user interface and analytics; and
+AWS
+for production deployment.
+You are not expected to know all implementation details yet. Several of these technologies will be taught later in the course.
+4. Analytics and RAG
+Identify:
+several business questions or metrics your dashboard should answer;
+the type of visualizations/insights you expect to provide;
+the unstructured data you expect to embed; and
+examples of questions users should be able to ask through your RAG system.
+5. Team Plan
+Briefly describe how your team expects to organize the work.
+Although tasks may be divided,
+every team member is responsible for understanding the complete architecture and all major components of the project
+.
+Final Project Expectations
+The final project will include:
+operational data stored in both
+RDBMS and NoSQL databases
+;
+a scalable data-processing component using technologies such as
+Hadoop/HDFS and Spark
+;
+an
+ETL/ELT pipeline
+feeding a Star/Snowflake data warehouse;
+business analytics and visualizations in
+Streamlit
+;
+a
+RAG capability
+using embeddings and a vector database;
+a working
+AWS production deployment
+;
+project report;
+video demonstration;
+production URL;
+source code; and
+class presentation.
+Each team member may be asked individually to
+explain, demonstrate, or modify any part of the project
+. Each team member will receive individual points based on their contributions and understanding of the project.
+Note:
+This proposal is tentative. You may refine the data, technology choices, and scope as you learn additional tools during the semester and after discussing changes with the instructor.
+Still, I recommend keeping the project idea consistent so you can keep progressing.
+
+链接与附件
+- GBL Resources (Big Data) Fall 2023.docx: ../../Files/16547132_GBL Resources (Big Data) Fall 2023.docx

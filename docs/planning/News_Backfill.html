@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>最近三年 NBA 新闻采集</title>
+<style>body{font:17px/1.65 system-ui;max-width:850px;margin:40px auto;padding:0 22px;color:#202b38}pre{background:#f1f4f7;padding:16px;overflow:auto}a{color:#175dab}</style>
+<h1>最近三年 NBA 新闻采集</h1>
+<p><b>范围：2023-11-17 至 2026-11-17，包含首尾日期。</b>固定来源为 Guardian Open Platform，查询 NBA 标签，按月、按页批量获取。这里只表示该来源命中的新闻，不表示全网新闻或完整伤病档案。</p>
+<h2>怎么开始</h2>
+<ol><li>在 <a href="https://open-platform.theguardian.com/access/">官方页面申请 Developer key</a>。当前非商业开发额度每天 500 次、每秒 1 次。实际用途以申请的授权为准。</li>
+<li>在本项目 PowerShell 中设置环境变量，再运行下方命令。key 不要写入代码或发到聊天。</li>
+<li>程序按月分页、去重、保存进度。同一命令再次执行会跳过已保存的页面；失败或达到本次请求预算时保留进度。</li></ol>
+<pre>$env:GUARDIAN_API_KEY = Read-Host 'Guardian API key'
+python scripts/collect_guardian_to_mongodb.py --backfill --start 2023-11-17 --end 2026-11-17</pre>
+<p>默认每次最多 100 个请求、间隔至少 1.1 秒。额度是账号共享的；预算用尽后检查当天剩余额度再继续。加 <code>--include-body</code> 可请求正文，使用独立输出目录。加 <code>--plan</code> 可离线查看查询范围。</p>
+<h2>会得到什么</h2>
+<p><code>data/collected/guardian_2023-11-17_2026-11-17_metadata/</code> 中的 <code>news.csv</code> 和 <code>news.jsonl</code> 保存来源 ID、链接、标题、发布时间、获取时间与主题标签；<code>coverage.json</code> 记录每月总数、已取页数、错误和缺口。正文模式另有 <code>_body</code> 目录。</p>
+<p>先留来源 ID，之后再建立球队、球员、比赛映射。新新闻没有匹配的历史比赛时保留空值。新闻提及伤病不等于官方伤病状态，官方报告单独采集。</p>
+<h2>实现与验证</h2>
+<p>目标：一个无需第三方 Python 包的可恢复采集脚本。依据：用户要求固定来源、最近三年、批量采集。</p>
+<ol><li>在 <code>tests/test_guardian_news.py</code> 先验证月份边界、分页恢复、重复记录、接口失败和缺失时间。</li><li>实现 <code>scripts/collect_guardian_to_mongodb.py --backfill</code> 的日期参数、分页缓存和覆盖率输出。</li><li>运行离线测试及真实连接预检，区分工具验证与实际数据采集。</li></ol>
+<p>约束：不修改现有 AGENTS.md、RDS 或原始 NBA 数据；不使用测试 key 批量下载；不把修改时间当成发布时间。失败页面不缓存为成功；范围外或无时间记录单独统计。月份内记录数变化会标记为待复查。</p>
+<p id="status"><b>当前状态：</b>脚本已实现，6 项离线测试和语法检查通过。日期范围拆成 37 个自然月片段（首尾为不完整月份）。运行预检发现尚未配置 GUARDIAN_API_KEY，因此请求数为 0，新增真实新闻为 0；尚未验证实时接口，也尚未完成三年新闻下载。</p>
+<p>本次执行记录：先运行测试确认功能缺失，再实现脚本并通过测试；预检结果保存在 <code>data/collected/guardian_2023-11-17_2026-11-17_metadata/preflight.json</code>。NBA 官网历史出口尚未验证，因此本轮采用有文档的 Guardian API。已有的 8 条新闻样本保持独立。</p>
+<p>注意：保存的页面是一次历史采集快照。当天晚些时候新增的内容、后续更正或来源删除可能使结果变化；本程序尚不负责增量同步。完成分页只表示该查询已遍历，不能证明所有 NBA 新闻均已覆盖。</p>
+<p>技术参考：<a href="https://open-platform.theguardian.com/documentation/">官方查询与分页文档</a>。</p>
+</html>

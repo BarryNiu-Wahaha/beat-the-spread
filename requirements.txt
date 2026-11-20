@@ -1,0 +1,6 @@
+# Packages used by the current collection, inspection and RDS scripts.
+# No application, Spark or vector-database dependency is implied here.
+pandas
+sqlalchemy
+pymysql
+pymongo

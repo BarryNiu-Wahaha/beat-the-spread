@@ -1,0 +1,44 @@
+# Raw data is shared separately; only metadata belongs in GitHub.
+/data/*
+!/data/metadata/
+/release/
+
+# Local work, environments and editor settings.
+/.local/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Credentials and local configuration. Only the empty template is shared.
+.env
+.env.*
+!.env.example
+.aws/
+.codex/
+.agents/
+*.pem
+*.key
+*.pfx
+*.p12
+credentials.json
+secrets.json
+
+# Logs, downloads, database files and duplicate/locked Office files.
+*.log
+*.tmp
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+*.sql
+*.zip
+~$*
+/Project_Next_Steps.docx

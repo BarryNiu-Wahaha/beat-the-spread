@@ -1,11 +1,26 @@
-# DraftKings Market Monitoring & Investigation Platform
+# DraftKings NBA Game Monitoring & What-if Simulation Platform
 
-**Start with [START_HERE.html](START_HERE.html)** in your browser. It links to the data catalog and all project materials. The handoff documentation is in English for the team.
+[Current proposal — Word, revised 21 November 2026](docs/proposal/DraftKings%20Project%20Proposal.docx): the two-page course proposal. [AGENTS.md](AGENTS.md) records current decisions, evidence and implementation steps. The simulator, warehouse, RAG and application remain to be implemented.
+
+The platform will let sportsbook traders compare a baseline with scenario assumptions during historical NBA replay. One engine will use conditional empirical sampling and Monte Carlo simulation, preserving historical points-duration combinations. Traders can adjust **3PT Frequency, 2PT Frequency, Turnover Rate, Pace and FT Frequency** through sampling weights at key moments. Overrides apply to the selected team until expiry, replacement or withdrawal; traders do not need to adjust every possession.
+
+| Planned Streamlit page | Purpose |
+| --- | --- |
+| Game Monitoring | Current game state, baseline forecasts and available timestamped market quotes |
+| What-if Simulator | Adjust the five controls, compare outcome distributions, save or revoke scenarios |
+| Research & Review | Retrieve cited evidence with RAG and retain adjustment rationale and review history |
+
+Model validation is an auxiliary tab/report. Spark will reconstruct possessions from the 13,592,899 historical events and support distribution aggregation and batch simulation. Interactive queries will use cached distributions. Existing RDS and Atlas services will support operational records, with a separate Star warehouse and a persistent Qdrant index. Distributed performance will be measured rather than assumed.
+
+[Earlier simulator plan — 20 November 2026](docs/planning/What_If_Simulator_Project_Plan_2026-11-20.html): retained planning history; page assignments and controls are superseded by the current proposal and AGENTS.md.
+
+[Earlier next steps — 19 November 2026](docs/planning/Next_Steps_2026-11-19.html): the preceding monitoring/investigation proposal, retained as historical context.
+
+Use the current proposal for scope and [data/metadata/README.md](data/metadata/README.md) for the data catalog. The handoff documentation is in English for the team.
 
 ## Folder map
 
 ```text
-START_HERE.html          Visual entry point for teammates
 README.md               Setup and working rules
 requirements.txt        Python packages used by the current scripts
 .env.example            Variable names only; no credentials
@@ -17,7 +32,7 @@ data/
   metadata/             Dataset catalog, field dictionary, SQLite schema and checksums
 docs/
   requirements/         Course requirements
-  proposal/             Proposals and architecture illustration
+  proposal/             Current Word proposal, including architecture
   planning/             Earlier supporting plans; may lag actual data
 tests/                  Offline tests for existing data pipelines
 AGENTS.md               Maintained project decisions and progress evidence
@@ -57,7 +72,7 @@ Read [data/metadata/README.md](data/metadata/README.md) first. The catalog cover
 - Injury report text, original PDF files, article bodies and AI-written summaries are different evidence types. The current injury samples have text extracts, with no original PDFs downloaded.
 - Keep game/player IDs as strings when loading CSVs or spreadsheets. Blank mappings mean unresolved, not zero.
 - Historical NBA games end in 2023. Current 2026 odds/news cannot be forced onto historical game IDs.
-- Use pregame information only for pregame modeling; final scores are outcomes. Missing injury reports do not mean a player is healthy.
+- Build each forecast from information available at that replay state; final scores are evaluation outcomes. Keep entire games in chronological development/evaluation splits. Missing injury reports do not mean a player is healthy.
 
 ## Scripts
 
@@ -71,7 +86,6 @@ All commands below are run from the project root. There are no folder-organizing
 | `collect_guardian_to_mongodb.py` | Collect one page into Atlas, resume a saved batch, or run local monthly backfill | Default: one page + Atlas write. `--resume`: no API request. `--backfill`: local JSON/CSV only; add `--plan` for offline preview |
 | `download_injury_pdfs.py` | Download the three already-discovered injury PDFs | NBA PDF requests; local writes |
 | `collect_odds_sample.ps1` | Earlier single-request odds collector and CSV exporter | Odds API request; local writes |
-| `connect.py` | Legacy RDS sample-writing experiment | Creates one `test_` table in an existing MySQL database |
 | `migrate_sqlite_to_rds.py` | Copy SQLite into a new RDS MySQL database | Creates a database and copies rows; migration already completed, not an onboarding step |
 
 Safe offline previews:

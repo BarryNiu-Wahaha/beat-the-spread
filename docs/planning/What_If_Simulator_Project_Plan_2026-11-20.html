@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DraftKings NBA What-if Simulator · 项目计划 · 2026-11-20</title>
+<style>
+:root{font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:#203047;background:#f2f5f8;line-height:1.8}*{box-sizing:border-box}body{margin:0}main{max-width:1080px;margin:32px auto;background:white;padding:38px 44px;border:1px solid #dce3eb;border-radius:12px}h1{font-size:30px;line-height:1.4}h2{font-size:22px;margin-top:34px}h3{font-size:17px;margin-top:24px}p{margin:10px 0}a{color:#145b95}.muted,footer{color:#53647a;font-size:14px}.callout{border-left:4px solid #2867ab;background:#edf5ff;padding:14px 20px;margin:22px 0}.table-wrap{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:14px;margin:16px 0}th,td{border:1px solid #dce3eb;padding:10px 12px;text-align:left;vertical-align:top}th{background:#edf2f7}code{background:#eff3f7;padding:2px 5px;overflow-wrap:anywhere}pre{background:#f5f7fa;padding:18px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}li{margin:7px 0}nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin:20px 0}footer{border-top:1px solid #dce3eb;margin-top:30px;padding-top:18px}@media(max-width:680px){main{margin:0;padding:22px 16px;border:0;border-radius:0}h1{font-size:25px}}@media print{body{background:white}main{max-width:none;margin:0;padding:0;border:0}nav{display:none}h2,h3{break-after:avoid}tr,.callout{break-inside:avoid}}
+</style>
+</head>
+<body><main>
+<p class="muted">DraftKings · NBA What-if Simulation &amp; Model Review Platform</p>
+<h1>NBA What-if Simulator 项目计划</h1>
+<p><strong>日期：2026-11-20 · America/New_York</strong><br>状态：待评审的项目范围与实施路线；本次仅编写计划，未实现模型、建表、采集或部署。</p>
+<p><strong>Goal：</strong>让 sportsbook trading analysts 在历史 NBA 比赛时点提出进攻假设，比较模型输出、检查历史可靠性，并记录带证据的审查决定。</p>
+<p><strong>Architecture：</strong>历史事件经 Spark 重建回合并估计状态条件分布；模拟器比较基准与调整场景，批量回测写入 Star warehouse。RDS 与 MongoDB 支持实验及审查操作，Streamlit 展示结果，Qdrant + embeddings 支持有来源的文档问答。</p>
+<p><strong>Tech stack：</strong>Python、PySpark、现有 RDS MySQL、现有 MongoDB Atlas、Qdrant、Streamlit、AWS EC2/EBS。生成模型与 embedding 提供方在开发前按现有账号、文档语言及预算确定并固定版本。</p>
+<p><strong>依据：</strong><a href="../requirements/The%20project%20requirement.txt">课程原始 requirements</a>、<a href="../../AGENTS.md">已有项目状态及 2026-11-20 数据核对</a>、本次关于条件回合分布和 Monte Carlo 的讨论。技术项可以逐项覆盖，是否达标以实际实现、验证与课程评定为准。</p>
+<nav><a href="#scope">范围</a><a href="#requirements">要求映射</a><a href="#model">算法</a><a href="#data">数据架构</a><a href="#roadmap">实施阶段</a><a href="#acceptance">验收</a><a href="#team">团队与交付</a></nav>
+<div class="callout"><strong>先做的事情：</strong>选取一小批常规赛，验证能否正确重建回合和开始状态。通过后，建立最简单的条件抽样模型并做时间外验证，再扩大 Spark 工作量。历史库不需要先伪造成运营交易；实验和审查操作自然产生 operational data。</div>
+
+<section id="scope"><h2>1. 用户、业务问题与产品范围</h2>
+<p>分析师想知道：“如果我认为进攻方出现无得分回合的概率更低，胜率、最终分差和总分会怎样改变？这个模型在类似时间段的历史预测表现如何？我依据什么接受或拒绝这个假设？”平台把假设、计算结果、验证报告与审查决定关联起来。</p>
+<p>这是面向 DraftKings 工作流的<strong>历史研究与模型审查原型</strong>。现有数据截至 2023 年，不能据此承诺 2026 年真实定价准确性；不接真实下注、不自动改赔率、不把参数敏感性称为球员伤病的因果效应。</p>
+<div class="table-wrap"><table><thead><tr><th>建议页面</th><th>用户做什么</th><th>主要输出</th></tr></thead><tbody>
+<tr><td>Scenario Lab</td><td>选择历史比赛与已验证的回合起点，查看当时状态；保存假设，运行基准与调整场景。</td><td>胜率、分差与总分分布、差异、模拟次数、模型版本、支持样本数和不确定性说明。</td></tr>
+<tr><td>Model Validation</td><td>检查模型在未参与训练的比赛上的表现，按赛季、剩余时间和分差切片。</td><td>校准图、Brier score、log loss、分差/总分误差与区间覆盖率；运行耗时和吞吐量。</td></tr>
+<tr><td>Research &amp; Review</td><td>查询模型与历史实验报告，阅读来源；写审查意见，标为 Reviewed。</td><td>带引用回答、证据链接、Open → Reviewed 状态和可追踪的审查记录。</td></tr>
+</tbody></table></div>
+<p>原 Market Monitoring 作为独立扩展页保留规划，读取已有 h2h/moneyline 样本，显示报价时间；不在刷新时请求外部 API。2026 年赔率/新闻与旧比赛分开显示。Similar Game Finder 不属于本次 simulator 核心交付；本计划不删除已有采集代码或资料。</p>
+<p><strong>演示流程：</strong>历史比赛起点 → 查看基准 → 调低无得分回合概率 → 比较模拟分布 → 查看对应模型的验证报告 → 通过 RAG 找到适用限制 → 保存审查决定 → 刷新后仍可读取。</p>
+</section>
+
+<section id="requirements"><h2>2. Requirements 与验收证据逐项对应</h2>
+<div class="table-wrap"><table><thead><tr><th>课程要求</th><th>本项目实现</th><th>完成证据</th></tr></thead><tbody>
+<tr><td>大型组织与业务机会</td><td>继续使用 DraftKings；分析师假设测试与模型审查。</td><td>用户场景、业务价值与架构说明；更新后的 proposal 摘要。</td></tr>
+<tr><td>至少一个真实数据集超过 100 万条</td><td>已有 13,592,899 条 NBA play-by-play。记录质量过滤前后行数，分析流程实际处理超过百万条合格真实事件。</td><td>来源、字段字典、数据清单、排除原因和 Spark 实际输入计数。模拟结果标为衍生数据，不用来凑真实规模。</td></tr>
+<tr><td>RDBMS operational data</td><td>RDS 保存实验、场景参数版本、运行状态、审查状态与关系约束。</td><td>ER 图、DDL，以及创建/修改/刷新读取的演示。历史数据迁移已完成，不重复迁移。</td></tr>
+<tr><td>NoSQL operational data</td><td>Atlas 保存用户提交的假设说明、证据附件元数据和审查文档版本；另存实验报告与模型文档。</td><td>真实应用操作写入、按实验 ID 查询、修订记录与唯一索引。已有新闻文档不能代替这些新业务操作。</td></tr>
+<tr><td>Hadoop/HDFS 和/或 Spark</td><td>Spark 事件清洗、回合重建、条件频率估计、分布式批量模拟与回测。</td><td>执行计划、分区/任务记录、输入规模、单机与多节点性能对比。</td></tr>
+<tr><td>ETL/ELT → Star/Snowflake warehouse</td><td>将合格回合、实验结果与验证结果加载到独立 MySQL warehouse schema，建立事实表和维度表。</td><td>星型模型、粒度定义、可重复运行的加载、键与行数核对、真实 SQL 分析。CSV 导出不算完成。</td></tr>
+<tr><td>Streamlit analytics</td><td>上述三个核心页面，共享运行和模型 ID。</td><td>交互可运行、图表读数据库、无结果时正确提示，保留版本和时间信息。</td></tr>
+<tr><td>RAG + embeddings + vector DB</td><td>文档切块、embedding、Qdrant 持久索引、过滤检索、带来源生成答案。</td><td>检索片段、文档版本、引用与问答评估集。MongoDB 正文存储本身不算 RAG。</td></tr>
+<tr><td>AWS working application</td><td>EC2 托管应用/计算服务，EBS 持久化向量索引和必要文件；复用 RDS 与 Atlas。</td><td>可访问 production URL、真实端到端演示、重启恢复检查、部署说明。</td></tr>
+<tr><td>团队与最终交付</td><td>报告、演示视频、代码、URL、课堂展示、每人理解全链路。</td><td>交付清单、贡献记录、交叉演示与现场修改练习。</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="model"><h2>3. 数据与算法：先验证，再扩大</h2>
+<h3>3.1 已有数据与缺口</h3>
+<p>2026-11-20 只读全表核对：13,592,899 条事件的 <code>pctimestring</code> 无 NULL/空字符串，<code>period</code> 和 <code>eventnum</code> 无 NULL。实际有时钟、事件类型、描述、比分更新与参与球员/球队，但没有现成的 possession_id、回合耗时或完整场上阵容列。字段非空不证明事件顺序、记录完整性和时钟正确。</p>
+<p>已发现需要处理的情况：非得分事件的 score 大量为空；两条投篮命中事件没有 score；All-Star 样本有连续 0:00 事件；game 表样本存在重复 game_id；部分球队 ID 带字符串后缀 .0。先规范 ID、验证关联键、筛选比赛类型，并记录所有排除。NBA 全部比赛日期范围不能直接当作 play-by-play 覆盖范围。</p>
+<h3>3.2 回合数据契约</h3>
+<p>每条合格回合至少包含 <code>game_id, possession_id, period, offense_team_id, defense_team_id, start_clock_seconds, start_score_offense, start_score_defense, start_type, duration_seconds, points_offense, points_defense, end_reason, source_event_ids, quality_flags</code>。保留得分事件在回合内的相对时间及顺序，处理节末截断和罚球；原始事件只读保留。</p>
+<p>初始状态来自起点当时已知的信息。训练样本的回合结果来自后续已结束事件；模拟启动后的状态由模拟结果更新。球队强度等特征只用此前比赛计算。普通节末与加时、0 秒事件、技术罚球、进攻篮板及多事件同时间必须有明确定义；异常回合不能静默当作 0 分。</p>
+<h3>3.3 建模方案与选择</h3>
+<ul>
+<li><strong>建议第一版：</strong>状态分组 + 平滑的条件联合经验分布 + Monte Carlo。按剩余时间、进攻方分差、回合开始类型形成分组；一起抽取得分、耗时与必要事件轨迹。</li>
+<li><strong>对照模型：</strong>只用分差、剩余时间、主客场等信息的简单胜率模型，以及较粗的联盟回合分布。用于证明复杂度是否带来改善。</li>
+<li><strong>后续升级：</strong>条件分类/耗时模型、球队和对手强度调整。球员阵容影响模型、战术级事件引擎不列为第一版承诺。</li>
+</ul>
+<p>使用按比赛日期划分的 train/validation/test；同一比赛所有事件处于同一集合。分组范围、参考分布和平滑强度只在训练/验证集选择，锁定后评估测试集。使用固定训练截止日期的历史回放；默认不把测试期比赛结果逐场反馈进模型。记录每组样本数与回退到参考分布的原因。</p>
+<h3>3.4 第一个 what-if 参数</h3>
+<p><strong>修改“本次模拟中某队的无得分回合概率”</strong>，例如基准 50% → 假设 45%；示例数字并非实测值。对零分与非零分回合重新分配总权重，各类内部保留经验联合分布，归一化后抽样。记录作用球队、作用时间范围、原值、新值和模型版本。样本不支持的参数或超过合法概率范围的请求应拒绝或解释支持范围。</p>
+<p>这是明确的敏感性假设，不是“某球员上场造成胜率变化”的因果估计。节奏参数延后，避免直接压缩耗时而忽略节末、犯规和规则变化。</p>
+<h3>3.5 模拟与验证</h3>
+<p>从合格回合起点开始，以确定性随机种子批量抽样并更新状态。到节末只计入截止时刻已经发生的模拟得分事件，不把超时后的得分算进去；保留正确罚球和事件顺序。平局进入单独加时逻辑。无法处理的规则场景先标记不支持，并在最终验收前决定修复或明确缩小模型覆盖范围。</p>
+<p>记录基准与场景的胜场数、有效模拟次数、比分/总分直方图。胜率 Monte Carlo 标准误可用 sqrt(p(1−p)/N)；例如 N=10,000、p=0.5 时约 0.5 个百分点。这只衡量抽样误差，不能表示模型参数或真实世界不确定性已经解决。比较基准与场景时使用可复现的配对随机流。</p>
+<p>评估胜率校准、Brier score、log loss、总分/分差误差与预测区间覆盖率；以比赛为单位估计评估不确定性，避免把同场多个时点当独立比赛。模型不胜过基线时保留结果并解释，不宣称预测改善。</p>
+</section>
+
+<section id="data"><h2>4. 存储、ETL 与应用流程</h2>
+<pre>NBA 历史数据（原 SQLite 保留；RDS 已迁移）
+    → Spark：清洗 / 回合重建 / 状态特征 / 分布估计
+    → 批量模拟与回测 → Star warehouse → Streamlit 验证页面
+
+Streamlit 创建实验 → RDS：参数、状态、运行记录
+                  → Atlas：假设说明、证据、审查文档
+运行完成 → 结果入库 + 生成可追溯报告
+报告 / 模型说明 / 审查文档 → 切块 → embeddings → Qdrant
+Research Assistant → 检索证据 + SQL 查询精确指标 → 引用回答</pre>
+<h3>4.1 Operational schema 与文档</h3>
+<p>RDS 新建独立 operational schema，建议表：<code>experiments</code>（一项调查）、<code>scenarios</code>（一版参数）、<code>simulation_runs</code>（一次运行）、<code>reviews</code>（一次审查决定）。实验状态 Open → Reviewed；运行状态 Queued → Running → Succeeded/Failed，两种状态分开。关联用户、比赛、模型和版本。运行引用不可变场景版本；修改参数生成新版本。</p>
+<p>Atlas 复用已有集群，新增 <code>experiment_documents</code> 和 <code>model_documents</code>。前者存用户假设、来源、审查正文、修订版本；后者存模型说明、由真实计算生成的报告和已知限制。RDS 是状态和结构化参数的来源，Atlas 是文档正文的来源；用稳定 ID 关联。跨库写入使用幂等键和可重试状态，失败时显示“文档未保存”，不假装跨库事务原子完成。</p>
+<h3>4.2 Star warehouse：明确粒度</h3>
+<div class="table-wrap"><table><thead><tr><th>表</th><th>一行代表什么</th><th>指标或用途</th></tr></thead><tbody>
+<tr><td>fact_possession</td><td>一个合格历史回合</td><td>开始状态、得分、耗时、质量信息，关联比赛/日期/球队维度。</td></tr>
+<tr><td>fact_simulation_result</td><td>一个 run × 一个比赛起点 × 一个场景</td><td>模拟次数、胜场数、均值/分位数、耗时；重试批次合并后唯一。</td></tr>
+<tr><td>fact_simulation_histogram</td><td>一个结果 × 一种指标 × 一个固定区间</td><td>分差/总分分布计数，保留绘图与分析需要的分布。</td></tr>
+<tr><td>fact_prediction_evaluation</td><td>一个基准预测结果 × 一个评估版本</td><td>实际结果、预测误差及评分。人为改变假设的场景没有真实反事实标签，不拿原赛果当其准确性证明。</td></tr>
+<tr><td>dim_date / dim_game / dim_team / dim_model / dim_scenario</td><td>对应日期、比赛、球队、模型版本、场景版本</td><td>代理键和唯一自然键；球队作为进攻/防守的角色维度复用。</td></tr>
+</tbody></table></div>
+<p>ETL 保存 batch_id、源数据版本、模型版本、运行种子、生成时间、行数和拒绝记录。先写 staging，再按唯一键合并；重复加载不得翻倍。SQL 检查维度孤儿、重复事实、计数一致性与比赛最终比分。warehouse 使用现有 RDS 的独立 schema 即可，不默认购买 Redshift。</p>
+<h3>4.3 Spark 与 AWS 路线</h3>
+<p>本地先完成小样本正确性。扩大时按比赛分区处理事件，按状态聚合；模拟按“比赛起点 × 场景 × 模拟批次”分发，每个任务批量计算并返回汇总，不把一条路径里的每个回合变成远程任务。小模型参数可广播；页面单次模拟不重新读取全部原始事件。</p>
+<p>云端候选部署：EC2 上运行应用、后台任务与 Spark standalone；需要多机实验证据时，安排两个独立计算节点并记录实际 worker、CPU 与内存。数据从现有 RDS 通过受控 JDBC 分区读取，复用一次任务的中间缓存，避免每个模拟批次重复读库。分区数根据 RDS 承载能力决定，读取前确认源键与索引；不重新迁移原库。<a href="https://dist.apache.org/repos/dist/release/spark/docs/3.5.0/api/python/reference/pyspark.sql/api/pyspark.sql.DataFrameReader.jdbc.html">Spark JDBC 官方说明</a>支持 predicates 分区，并明确提醒控制并发数据库连接。</p>
+<p>比较同一数据、算法和模拟预算下的单机与多节点运行；分别记录读取、处理、模拟和写库耗时。报告 CPU/内存总量、wall time、吞吐量与资源时间；多机慢也如实报告。local[*] 或单机两个容器仅算单机并行。课程要求可扩展处理，并未规定必须证明单机无法完成。</p>
+<p>应用与 Qdrant 使用 Linux 持久卷/EBS，备份与恢复可验证；向量端口不公开，用户通过应用访问。<a href="https://qdrant.tech/documentation/operations/installation/">Qdrant 官方安装说明</a>给出容器持久存储方式。配置 HTTPS、访问控制、环境变量、后台任务超时/失败重试和日志；重启后实验与向量索引可读取。S3、EMR、Kafka、Redshift 均不在第一版必需清单内。新增实例或付费模型在明确预算后才开通，本计划不执行部署。</p>
+</section>
+
+<section id="rag"><h2>5. RAG 的实际问题、语料与评估</h2>
+<p>RAG 服务“理解模型和查找实验依据”，不负责计算胜率，也不从几篇新闻臆测市场变动原因。语料包含人工维护的模型说明、由真实回测生成的验证报告、实际实验/审查记录，以及确实相关且保留来源的公开方法文档。文档数量跟随实际工作增长，不制造重复报告来凑规模。</p>
+<ul>
+<li>“这个模型在最后两分钟有哪些已知限制？请引用验证报告。”</li>
+<li>“当前场景为什么回退到联盟参考分布？对应模型版本怎么定义回退？”</li>
+<li>“以前哪些实验审查讨论过调低零分回合概率？他们的依据是什么？”</li>
+</ul>
+<p>切块保留 doc_id、revision、model_version、run_id、game_id（若适用）、created_at、source_cutoff、出处与证据片段。Qdrant 检索按版本、可见范围和问题时点过滤；精确数值从 SQL 查询，再链接到相应报告。区分“当时可以知道的内容”和“赛后模型审查”：历史赛前问答不能检索事后报告，赛后评估可以使用事后结果但明确时间。</p>
+<p>建立至少 20 个手工核对的问题，覆盖正确检索、错误版本、无证据、历史时间过滤和精确指标查询；建议验收目标为有证据问题至少 80% 的正确证据出现在 top-5，时间/版本过滤用例全部通过，引用可定位原文，拒答用例不编造答案。阈值是项目目标，不是已达到的结果；少量文档阶段直接阅读可能更有效，要说明 RAG 的实际增益和局限。</p>
+</section>
+
+<section id="roadmap"><h2>6. 分阶段实施计划</h2>
+<p>按约 4–6 周的小组课余项目安排，阶段可以部分并行；这是工作量建议，不是已确认的截止日承诺。先通过各阶段验收，再扩大规模。</p>
+<div class="table-wrap"><table><thead><tr><th>阶段</th><th>任务与拟新增文件</th><th>可检查的交付 / 依赖</th></tr></thead><tbody>
+<tr><td>M1：回合可行性<br>第 1 周前半</td><td>选择约 100 场不同年份常规赛，包含罚球、进攻篮板、末节与加时；去重关联键、检查顺序并重建回合。<code>scripts/build_possessions.py</code>；<code>tests/test_possessions.py</code>。</td><td>数据审计与回合样本；自动核对所有被接受比赛的逐节/最终比分，人工审查至少 10 场中的代表性回合。不能解释的错误隔离并报告，不能静默通过。未通过则暂停复杂模拟扩量。</td></tr>
+<tr><td>M2：模型与小型回放<br>第 1–2 周</td><td>锁定时间划分，建立参考/条件分布与简单胜率基线；完成可复现模拟和零分概率 what-if。<code>scripts/fit_possession_model.py</code>、<code>scripts/run_simulation.py</code>；相应 unittest。</td><td>一场比赛一个起点的基准/场景结果；验证概率归一、参数边界、同种子复现、比分和时钟更新、节末与加时。模型接口固定后才接 UI。</td></tr>
+<tr><td>M3：真实运营流程<br>第 2–3 周，可与 M2 部分并行</td><td>建立 RDS 表及 Atlas 文档约定，完成创建实验、保存参数、记录运行、提交审查。<code>sql/operational.sql</code>、<code>app/services/experiments.py</code>。</td><td>Open → Reviewed；运行失败可追踪；改参数产生新版本；跨库失败可恢复；刷新后状态和文档仍存在。先用独立开发 schema/collection 验证。</td></tr>
+<tr><td>M4：Spark、仓库与回测<br>第 3–4 周</td><td>在超过百万条合格真实事件上执行流程，批量回放历史时点；加载星型事实/维度，比较单机和多节点。<code>scripts/run_spark_pipeline.py</code>、<code>scripts/load_warehouse.py</code>、<code>sql/warehouse.sql</code>。</td><td>训练/测试无同场泄漏；实际规模与排除率、Spark 日志、模型评分、计算基准、幂等 ETL 和可查询仓库。多节点云实验需要先确定资源预算。</td></tr>
+<tr><td>M5：三页应用与 RAG<br>第 4–5 周</td><td>连接场景页、验证页、研究审查页；文档切块、索引、版本过滤和引用问答。<code>app/streamlit_app.py</code>、<code>app/pages/</code>、<code>scripts/index_research_documents.py</code>、<code>app/services/research.py</code>。</td><td>端到端流程、图表和 SQL 一致、文档与运行可互相定位；20 问评估集及明确拒答。用 M2/M4 真正产出的报告作为语料。</td></tr>
+<tr><td>M6：AWS 与最终交付<br>第 5–6 周</td><td>容器化、环境变量、持久化、访问控制和 URL；演示、报告及团队练习。<code>deploy/compose.yaml</code>、部署说明；最终报告与视频。</td><td>production URL 可访问；创建实验→运行→检索→审查可复现；重启不丢索引和业务数据；日志无凭据；每位成员完成全链路讲解。</td></tr>
+</tbody></table></div>
+<h3>共享接口与验证约定</h3>
+<p><code>build_possessions(events)</code> 返回规范回合和拒绝记录；<code>fit_model(possessions, split_config)</code> 返回带训练截止日期、分组规则和版本的分布；<code>simulate(start_state, model, scenario, n_paths, seed)</code> 返回统一结果及直方图。批量 Spark 与页面共用同一模拟内核，避免两套算法。各模块在实施前用独立组件计划细化类型和错误契约。</p>
+<p>每个阶段先为高影响行为写最小离线 fixture 和 unittest，再实施并验证；数据库变更在独立测试 schema/collection 检查，完成后做聚焦代码审查和分阶段提交。保留现有采集测试，新增测试不调用付费 API。执行既有 <code>python -m unittest discover -s tests -v</code>；集成验收另记录数据库与云端真实结果，不能用离线测试替代。</p>
+</section>
+
+<section id="acceptance"><h2>7. 最终验收与重点风险</h2>
+<ul>
+<li>□ 实际处理超过百万条真实源事件；报告过滤前后规模、赛季覆盖与来源。</li>
+<li>□ 合格样本得分重建与逐节/最终比分一致；事件顺序、同时间事件、罚球、进攻篮板、节末和加时有验证证据。</li>
+<li>□ 至少一个清晰定义的 what-if 参数；模拟可复现，输出含模型版本、样本支持和抽样误差说明。</li>
+<li>□ 时间外测试与基线比较完成；如无提升或覆盖不足，结果如实呈现。</li>
+<li>□ RDS 和 Atlas 均有来自真实应用操作的持久记录；失败与重试不产生重复事实或虚假成功状态。</li>
+<li>□ Star warehouse 有真实表、明确粒度与可重复 ETL；运行结果、分布计数和维度关联一致。</li>
+<li>□ Spark 实际执行，单机/多机结果和性能可复查；不声称扩容一定更快。</li>
+<li>□ RAG 确实使用 embeddings 和向量数据库；引用、版本和时间过滤通过评估。</li>
+<li>□ AWS URL 与重启恢复通过；报告、视频、代码和课堂展示齐备。</li>
+</ul>
+<p><strong>优先审查五类失败：</strong>跨比赛重复键导致 join 膨胀；赛后信息进入起始状态；超出样本支持的状态/参数；零时长事件和节末得分处理错误；重试导致跨库文档、运行结果与向量版本错配。分别由 M1、M2/M4、M2、M1/M2、M3/M5 的测试和验收负责。</p>
+<p>业务成效通过小型用户任务演示记录：比较手工查看报告与平台完成“找出场景影响并定位依据”的耗时和正确性。不能把演讲中 DraftKings 的 30% 改善当作本项目结果；没有真实企业试验时，不报告节省金额或真实交易收益。</p>
+</section>
+
+<section id="team"><h2>8. 团队、预算与下一步</h2>
+<p>按四类职责组织，而非假定必须四个人：数据/回合与 Spark；模型/验证与仓库；应用/运营流程；RAG/部署与集成。人数少可合并，但每个阶段由另一位成员复核。每周交叉演示一次：任意成员说明一个状态如何生成、一个任务怎样并行、一个结果怎样入库、一个引用怎样检索。</p>
+<p>最终材料包含：需求映射、架构图、operational ER 图、warehouse 星型图、数据来源与字典、清洗覆盖报告、模型假设与验证、Spark 性能证据、RAG 评估、部署恢复步骤、成本记录、局限、团队贡献与可复现演示。</p>
+<p><strong>实施前需补充的约束：</strong>课程最终截止日期、团队人数与可投入时间、AWS 总预算、可用的 embedding/生成模型账号。计划当前不假设额外新闻采集或付费数据；不重新执行 RDS 迁移。若剩余时间不足，缩减模型参数和 UI 装饰，保留每个必需技术组件的最小可运行流程与验证。</p>
+<p><strong>下一项具体工作：</strong>M1 小样本回合重建可行性检查。先交付可核对的回合表与质量报告，再决定扩大模拟模型。现有旧计划保留作历史记录；本计划描述此次 simulator 方向，不代表它已经开发或上线。</p>
+</section>
+<footer>项目计划版本：2026-11-20。原始数据保持只读；本文件是规划材料。技术参考：<a href="https://answers.databricks.com/building-real-time-sport-model-insights-spark-structured-streaming-okTOIQwwI3g">DraftKings 演讲文字稿</a>；<a href="https://www.sciencedirect.com/science/article/pii/S0169207011000458">回合 Markov 模型研究</a>。这些资料支持方法背景，不证明本项目的预测准确性或性能。</footer>
+</main></body></html>

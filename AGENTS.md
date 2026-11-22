@@ -1,193 +1,225 @@
-# Repository Guidelines
+# Project Goals & Repository Guidelines
 
-本文件是 contributor guide、agent 执行指引和项目进度记录。最后核对：**2026-11-17，America/New_York**。当晚采集目录名中的 `20261118` 使用 UTC。
+目标整理日期：**2026-11-21，America/New_York**。本文件是本项目的目标、agent 执行指引和进度记录，继续维护本文件，不另建 `agent.md`。
 
-## Project Context & Sources of Truth
+**当前目标已明确；simulator、三个应用页面、Spark、warehouse 与 RAG 尚未实现。** 下文区分用户决定、拟实施设计和已有证据，不能把计划描述成已经完成的功能。
 
-项目：**DraftKings Market Monitoring & Investigation Platform**，面向 sportsbook trading analysts，辅助比较赔率、调查相关信息和查找相似历史比赛。
+## 1. 项目目标与范围
 
-- [The project requirement.txt](docs/requirements/The%20project%20requirement.txt)：课程要求与最终交付物。
-- [DraftKings Project Proposal.pdf](docs/proposal/DraftKings%20Project%20Proposal.pdf)：主要 proposal。
-- [DraftKings_Proposal_intro.pdf](docs/proposal/DraftKings_Proposal_intro.pdf)：分析师工作流、三页应用、引用与赛前信息约束。
-- [Project_Next_Steps.docx](Project_Next_Steps.docx)、[News_Backfill.html](News_Backfill.html)：已有辅助文档，可能落后于最新采集结果。
-- 用户最新决定和实际数据决定实施范围；proposal 是可调整的样板。不要反复纠正草案措辞而阻碍实施。
+项目：**DraftKings NBA Game Monitoring & What-if Simulation Platform**，面向 sportsbook traders / trading analysts。
 
-目标应用包含三个部分：
+**目的：Trader 在比赛关键节点调整进攻假设，系统重新模拟剩余比赛，展示对最终分差、总分、胜率及打穿指定 spread 概率的影响，辅助人工判断。** 主线是比赛中的场景分析，不是以“新模型上线评审”为主要业务的研发平台。
 
-1. **Market Monitoring Dashboard**：比较同一比赛、市场、结果的 DraftKings 与其他博彩公司赔率，显示差异及报价时间。
-2. **AI Research Assistant**：检索伤病报告、新闻、球队动态，回答问题并提供来源、时间与证据片段。
-3. **Similar Game Finder**：基于历史赛前特征做 KNN，展示相似比赛和最终分差背景。
+- 第一版使用**条件经验分布抽样 + Monte Carlo**，不要求训练 ML 分类器，也不为五个调整项分别建立 ML 模型。
+- 一个统一 engine 服务不同比赛和状态，同一批模拟结果产生多种输出。Trader 不需要每个 possession 都调整。
+- 最终使用场景是比赛进行中；**第一版通过历史比赛回放演示**。真正的 live 接入需要后续事件源与延迟验证。
+- 当前实际赔率样本只有 `h2h` / moneyline。没有对应历史 spread 数据时，使用明确标注的假设让分线，不伪装成真实市场报价。
+- 平台辅助研究和判断，不直接修改或发布真实 sportsbook 报价。不把敏感性模拟当作伤病或换人的因果效应。
+- 用户要求整体从简。第一版使用 Spark，不额外引入 Pig、Ray 计算框架、Kafka 或复杂 ML；确有需求时再讨论。
 
-平台辅助人工调查，不自动调整赔率；新闻相关性不证明赔率变化的因果。当前实际赔率样本只有 `h2h` / moneyline，不能把 proposal 的 spread 示例写成已采集能力。
+### Sources of truth
 
-## Assignment Requirements & Status
+- [课程 requirements](docs/requirements/The%20project%20requirement.txt)：课程约束与最终交付物。
+- **用户最新决定与本文件当前目标**：应用范围、三个页面、五项调整与推进顺序。
+- [当前 Word proposal，2026-11-21](docs/proposal/DraftKings%20Project%20Proposal.docx)：按课程两页要求重写，包含业务目标、数据来源、架构、三个页面、验证和团队分工。
+- [2026-11-20 项目计划](docs/planning/What_If_Simulator_Project_Plan_2026-11-20.html)、[2026-11-19 计划](docs/planning/Next_Steps_2026-11-19.html)：保留作参考；其中独立 Model Validation 主页面、单一零分概率控制、KNN 等旧范围，以本文件的新目标为准。
+- Similar Game Finder / KNN 不再属于第一版任务；不要沿用旧计划自动实施相似比赛检索或以扩充新闻为第一优先级。
 
-| 必须满足的要求 | 当前状态与剩余工作 |
-| --- | --- |
-| 至少一个真实数据集超过 100 万条 | 本地 NBA play-by-play 有 **13,592,899** 条，满足规模要求；新闻/RAG 不需要百万篇。 |
-| RDBMS operational data | 用户已确认 NBA 数据迁入 RDS；alerts / investigations 等应用操作记录仍待实现。历史数据迁移不等于完成全部 operational 功能。 |
-| NoSQL data | Atlas 已有赔率和新闻成功写入记录；伤病资料的云端入库仍待完成。 |
-| Hadoop/HDFS 和/或 Spark | 尚未实现；计划用 Spark 处理历史 NBA 大数据及赛前特征。 |
-| ETL/ELT → Star/Snowflake warehouse | 尚未实现；需落实事实表、维度表、粒度和加载流程。CSV 导出不算完成仓库。 |
-| Streamlit analytics | 三个页面尚未实现。 |
-| RAG：embeddings + vector database | 尚未切块、生成 embedding、建立 ChromaDB/Qdrant 索引或接通聊天。MongoDB 正文入库不等于 RAG 完成。 |
-| AWS working application | 用户已使用 RDS；应用、向量服务、持久化与 production URL 尚未交付。Atlas 的 provider/region 未在本次核对。 |
-| 最终交付 | 工作系统、production URL、报告、视频、代码、课堂展示；每位成员都须理解完整架构。 |
+## 2. 三个主页面
 
-S3、Redshift、EMR 不是 TXT 指定必须使用的产品，不要仅因 proposal 提到就购买或部署。
+三个页面属于同一个 Streamlit 应用，切换时保留选中的比赛、回放时点和场景。
 
-## Current Decisions
-
-- 历史 NBA 数据可以用旧年份。**用户已确认 RDS 连接及迁移完成，不要重新迁移或当成未开始。**
-- 新闻目标范围：**2023-11-17 至 2026-11-17**。目前只有样本，三年回填尚未完成；不要静默改成最近七天。
-- 当前新闻来源是 Guardian；proposal 的 GDELT 方案未实施。Guardian 不保证覆盖每个球员、比赛或正式伤病状态。
-- **暂时不接 S3**。新闻正文直接存入已有 Atlas 集群的 `nba_project.news_articles`，赔率存入 `nba_project.odds_snapshots`；优先复用已有集群。
-- Atlas 是托管平台，cluster 是部署，database 是 `nba_project`，collection 是 `news_articles` 等。不要称作 AWS 自有的“Amazon MongoDB”。
-- 使用现有样本开发 dashboard/RAG，不持续轮询。页面刷新应读数据库，不能每次交互都请求外部 API。
-- Atlas 实际剩余空间尚未测量。先测正文、索引与已有数据占用，再决定扩容；不要保证三年所有资料装得下，也不要自动迁往 EC2。
-
-## Verified Progress — 2026-11-17
-
-证据级别：本地原文件和状态日志可核对；云端写入结果来自用户成功运行时生成的日志。本次文档整理没有重新连接 Atlas/RDS，也没有请求外部数据或写库。
-
-| 部分 | 已完成与证据 | 限制 |
+| 页面 | 用户的问题 | 核心内容与操作 |
 | --- | --- | --- |
-| NBA 原始库 | 本次只读核对 `data/raw/nba.sqlite`：16 张表；game **65,698** 条；play_by_play **13,592,899**；player **4,815**；team **30**。 | game 日期实际为 **1946-11-01 至 2023-06-12**，不能把 proposal 的年份当成已验证事实。 |
-| RDS | 用户确认已连接并完成迁移；脚本为 `scripts/migrate_sqlite_to_rds.py`。 | 本次未重新检查云端全部行数、索引与键约束。 |
-| 首批赔率 | `data/collected/odds_sample_20261118T0022108258385Z/`：9 场、118 条展开赔率、9 家博彩公司；保留原始 JSON。 | PowerShell 嵌套数组曾使 CSV 出现 `System.Object[]`；已修复脚本并从原始 JSON 重建 CSV，错误导出另存备份。 |
-| Atlas 赔率 | `data/collected/odds_mongodb_20261118T021208Z_ccbe3ddf/collection_status.json`：completed；14 场、插入 14、验证 14。 | 该次请求扣 1 credit，当时返回剩余 499；不是当前实时余额。 |
-| Atlas 新闻 | `data/collected/guardian_mongodb_20261118T025946Z_e999017a/`：completed；10 篇、10 篇有正文、插入及验证均为 10。原始 JSON 已核对。 | NBA 标签、约定三年范围、newest、第 1 页、每页 10；当时 API 匹配总数 **389**、39 页。389 不是已下载数，也不是全网 NBA 新闻总量。 |
-| 伤病样本 | `data/staging/injury_reports/` 有 3 份官方 PDF 的网页提取文本；`data/collected/injury_news_2026-11-17/` 有 124 条伤病记录、67 条球队提交状态、25 个本地比赛映射和 1 个状态变化。 | 原始 PDF 本地下载数仍为 0；50 个唯一球员名未匹配。该批次的 8 条早期新闻索引/摘要不是 Guardian 的 10 篇正文。 |
-| 测试 | `python -m unittest discover -s tests -v`：**19 项通过**。 | 主要为离线/模拟边界测试，不证明当前云端可达；一次运行出现模拟 HTTPError 的清理 ResourceWarning，未导致失败。 |
+| **Game Monitoring · 比赛监控** | 现在比赛是什么情况，系统目前怎么看？ | 比赛选择、比分、节次、时间、球权、基准预测及随比赛推进的变化。有真实报价时显示报价和时间。点击“进入场景模拟”带入当前状态。 |
+| **What-if Simulator · 场景模拟** | 如果我的判断与基准不同，会有什么影响？ | 同页展示当前状态与基准、五项调整控制、调整前后结果。选择球队、有效期和理由，执行“运行比较”“保存并保持生效”“撤销调整”。 |
+| **Research & Review · 研究与调整记录** | 调整依据是什么，之前改过什么？ | RAG 研究问答、原文/来源/时间、关联证据、参数版本、生效范围、运行结果与审查记录。可返回模拟页测试假设。 |
 
-保留旧失败日志，但以之后的成功记录判断进度：曾出现本地网络访问失败、MongoDB preflight OperationFailure；后者 request_attempts=0，未请求 Odds，用户之后已成功跑通。
+**暂不增加第四个主 Dashboard。** Model Validation / Model Performance 放在模拟页的辅助标签或报告中，检查校准、误差、适用范围和计算表现；它不能抢走 trader 场景调整的主流程。
 
-## Project Structure & Module Organization
+## 3. Engine 与自动预测流程
 
-- `data/raw/nba.sqlite`：原始 SQLite，只读保留。
-- `scripts/look.py`：查看表结构及行数；`connect.py`：探索并向 MySQL 写小样本，使用 `test_` 前缀。
-- `scripts/migrate_sqlite_to_rds.py`：迁移到新的 RDS MySQL database 并核对行数；不要为了测试采集流程重跑。
-- `scripts/collect_odds_to_mongodb.py`：MongoDB 预检 → 单次 NBA/us/h2h 请求 → JSON 备份 → 比赛快照入库。
-- `scripts/import_odds_to_mongodb.py`：从已保存 JSON 补传赔率，无需再次请求 Odds。
-- `scripts/collect_guardian_to_mongodb.py`：单页新闻正文入库；支持 `--resume` 补传，不接 S3。
-- `scripts/collect_guardian_news.py`：按月分页的历史新闻本地回填；默认最多 100 请求，不要无预算直接运行。
-- `scripts/build_injury_news_sample.py`：离线生成伤病样本、来源、实体及比赛映射。
-- `scripts/download_injury_pdfs.py`：仅下载已发现的 3 份 PDF 队列，不是三年历史报告采集器。
-- `scripts/collect_odds_sample.ps1`：早期单次赔率采集及 CSV 导出，原始 JSON 仍保留。
-- `data/collected/<batch>/`：原始响应、派生数据及状态日志。`data/staging/`：当前报告提取文本和早期新闻种子。
-- `tests/`：Python unittest 离线测试。根目录 PDF/PNG 为 proposal 和架构材料；`Wyatt Walsh.pdf` 当前为空文件。
+```text
+真实/回放回合结束 → 更新比分、时间、球权 → 进入下一个确认的回合起点
+    → 取得当前状态适用的历史基准分布
+    → 应用仍生效的 Trader 调整
+    → 多次模拟整场剩余比赛
+    → 更新基准与调整后的分差、总分、胜率、spread 覆盖概率
+```
 
-## Build, Test, and Development Commands
+- **真实比赛层面**：计划每个确认的回合起点触发一次完整预测；吞吐量和界面更新频率在实施时测量。
+- **一次预测内部**：运行许多条可能的剩余比赛路径，每条路径包含多个模拟回合。模拟次数可配置，10,000 是示例预算，不是课程硬性要求。
+- **Trader 层面**：只在关键节点提交调整，指定球队、开始时点、有效期、理由和证据。调整到期、撤销或替换前自动应用，保留版本与历史记录。
+- 持续生效的是调整规则/相对权重。比赛状态改变后，先取得新的基准，再应用规则；不能将某一刻的固定概率复制到所有未来回合。
+- 暂停、犯规、换人可以触发关注或提交假设，但规则已确定的比分、罚球和球权变化由系统处理，不需要人工猜概率。
+- 第一版只从**确认的回合起点**启动模拟。回合中途或罚球未完成时不能重抽一个完整回合；先在下一个有效起点应用。任意时刻预测需要另行建模当前回合进度。
 
-从仓库根目录执行；如果当前位于 `scripts/`，去掉命令中的 `scripts/`。优先使用用户现有 `msba` 环境。新机器可先用 `python -m venv .venv` 创建环境。
+### 起始状态与预测目标
+
+基础状态为 `home_team_id`、`away_team_id`、`period`、`seconds_remaining_in_period`、`home_score`、`away_score`、`offense_team_id`、`possession_start_type`。由此推导进攻方分差、主客场和状态分组；球队 ID 用来关联历史信息，不把 ID 数值本身当作实力。
+
+- 历史回合的目标为 **`(points, duration)` 及必要事件轨迹**，不是只有“得分/不得分”二分类。
+- 第一版按状态分组或加权，构建联合经验分布；小样本结合较大参考群体平滑。时间/分差分组、历史窗口和平滑强度属于待验证 hyperparameters。
+- 每次抽取同一历史回合的得分、耗时与必要事件顺序，更新模拟比分、时间和球权，再继续模拟。
+- 最终分差与总分由整条路径产生。主队 `-6.5` 的覆盖概率是模拟中主队最终赢至少 7 分的比例；整数线需区分赢盘、走盘、输盘。
+- 分布在后台预先构建并按版本保存，页面交互不反复扫描全部原始历史数据。
+
+## 4. 第一版五项 Trader 调整
+
+这些控制项表示**抽样倾向/相对权重**，不承诺倍率等于最终实际频率的同比变化。页面同时展示控制值、调整后的实际事件频率/耗时统计和预测结果。
+
+| 控制项 | 调整方法 | 定义约束 |
+| --- | --- | --- |
+| **3PT Frequency** | 提高或降低包含三分出手的历史回合权重 | 包含命中与投失；不能用“最终得 3 分”代替“三分出手”。 |
+| **2PT Frequency** | 调整包含两分出手的历史回合权重 | 与三分倾向相关，不能当作完全独立的目标比例。 |
+| **Turnover Rate** | 调整包含失误事件的回合权重 | 零分不等于失误，必须依据事件识别。 |
+| **Pace** | 在适用状态内偏向较短或较长的历史回合 | 保留样本实际比赛时钟耗时；短回合不自动等于快攻；零时长、节末和特殊规则须单独处理。 |
+| **FT Frequency** | 调整包含进攻罚球的回合权重 | 区分罚球类型和规则状态；罚球的现实等待时间不等于比赛时钟消耗。 |
+
+- 同一回合可以包含三分投失、进攻篮板、两分尝试与罚球等多个标签，**不能硬划分成五个互斥桶**。
+- 保留出手次数、命中、罚球与失误等原始计数/标签。具体权重函数、倍率范围与多项叠加方式在实现前固定定义，再归一化；不要擅自把控件描述成命中率或球员实力的直接因果调整。
+- 多项调整共同加权后，显示实际形成的三分/两分出手占比、失误比例、罚球频率和回合耗时，并说明分母。样本不支持的情景或极端集中权重需提示，不生成虚假精度。
+- 保留 `(points, duration)` 配对不代表整体 duration 分布固定不变；改变样本权重会使总体耗时分布随之变化。
+- 原始历史数据保持不变。基准与场景使用同一比赛起点、模型版本和可比较的模拟预算，保存种子及所有调整记录。
+
+## 5. 课程要求与技术分工
+
+| 必须满足的要求 | 本项目用途与当前状态 |
+| --- | --- |
+| 至少一个真实数据集超过 100 万条 | 本地 NBA play-by-play **13,592,899** 条。记录过滤前后规模，让 Spark 实际处理百万级合格真实事件；模拟输出明确标为衍生数据。 |
+| RDBMS operational data | 复用已有 RDS，新增实验、场景版本、运行状态、有效期和审查关系；尚未实现。历史 NBA 迁移不等于完成运营功能。 |
+| NoSQL operational data | 复用 Atlas，保存用户提交的假设说明、证据、研究与审查文档版本；这些新操作待实现。已有新闻/赔率成功入库记录继续保留。 |
+| Hadoop/HDFS 和/或 Spark | 使用 **Spark** 做事件清洗、回合重建、条件分布统计、批量模拟/回测和汇总；尚未实现。 |
+| ETL/ELT → Star/Snowflake warehouse | 计划独立 schema，包含回合、模拟结果/直方图、基准验证事实及日期、比赛、球队、场景、模型版本维度。明确粒度、唯一键、幂等加载；尚未实现。CSV 不算完成仓库。 |
+| Streamlit analytics | 上述三个主页面与辅助模型表现标签；尚未实现。 |
+| RAG：embeddings + vector database | 文档切块、embedding、持久化向量索引、检索与带引用回答；尚未实现。可沿用前期 Qdrant 方案，具体配置按资源确定。 |
+| AWS working application | 计划在 EC2 运行应用/计算，EBS 持久化必要文件和向量索引，复用 RDS 与 Atlas。应用、向量服务和 production URL 尚未交付。 |
+| 最终交付 | 系统、production URL、报告、视频、代码和课堂展示；每位成员须理解并能演示/修改完整架构。 |
+
+### 分布式计算原则
+
+- 按比赛处理有序事件；按状态聚合分布；按比赛起点、场景和模拟批次并行，单条模拟路径内部仍依赖前一步。
+- 共享可缓存的小型模型分布，不把每次滑杆操作变成一次全表扫描，不为凑规模重复制造计算。
+- 比较同一数据、算法、模拟预算下的单机与多节点耗时、吞吐量和资源成本。`local[*]` 或单机多个容器不是多机分布式证据。
+- 查询多或能并行，不自动证明多机更快。课程要求可扩展处理，不要求声称单机绝对做不了。
+- S3、Redshift、EMR 不是课程指定必须产品；**暂不接 S3**，不默认新增付费资源或迁移 Atlas。
+
+## 6. Research / RAG 的边界
+
+- RAG 为 Trader 查找依据：相关新闻/伤病资料、公开方法资料、模型说明、真实实验报告和历史审查记录。回答带原文片段、来源、发布时间和文档版本。
+- **研究助手提供证据，Trader 决定假设，simulator 计算影响。** RAG 不能凭一条新闻直接认定“失误率应提高 5%”；必须区分已知事实、研究解释和人为假设。
+- 精确指标、比分、赔率和状态优先用结构化查询；检索文本用于解释和引用。没有足够证据时说明缺失，不伪造自动调参依据。
+- 保存 `doc_id`、revision、source、URL、发布时间、获取时间，以及适用的 game_id、run_id、model_version。证据与场景相互关联。
+- 历史回放中的即时研究只能使用当时可获得的信息。赛后验证报告可用于赛后模型审查，但不能伪装成比赛当时的证据。
+- 当前 2026 年新闻和赔率不能强行关联截至 2023 年的历史比赛。匹配不到的实体/比赛留空，补充来源前先明确日期覆盖、访问条件与预算。
+- Guardian 是单一媒体来源，不保证完整球员/伤病覆盖；官方状态与媒体解释分开；`not submitted` 或未被列入报告不能解释为健康。
+
+## 7. 已有数据与验证证据
+
+证据日期保持原样：**2026-11-21 本次只整理文档、检查脚本路径与本地状态日志，未重连云端、重跑迁移或重新扫描原始数据库。** 采集目录的 `20261118` 使用 UTC，对应当时 America/New_York 的 11 月 17 日晚。
+
+| 部分 | 已有证据 | 限制 |
+| --- | --- | --- |
+| NBA 原始库 | `data/raw/nba.sqlite`，2,349,588,480 bytes；16 表；game 65,698，play_by_play 13,592,899，player 4,815，team 30。 | game 日期 1946-11-01 至 2023-06-12，不代表 play-by-play 全年份覆盖或唯一比赛数。 |
+| RDS | 用户确认连接及迁移完成；现有迁移脚本保留。 | 本次未复查云端全部行数、索引和约束，不要重迁。 |
+| 赔率 | `data/collected/odds_sample_20261118T0022108258385Z/`：9 场、118 条展开赔率、9 家公司；`odds_mongodb_20261118T021208Z_ccbe3ddf/collection_status.json` 为 completed，历史成功记录为 14 场入库并验证。 | 仅 h2h 快照，不是连续盘口或实时 spread。旧 API 余额不是当前余额。 |
+| 新闻 | `data/collected/guardian_mongodb_20261118T025946Z_e999017a/collection_status.json` 为 completed；10 篇有正文并成功入库。 | 当时查询匹配 389 篇不等于下载了 389 篇；样本发布时间为 2026-10-28 至 2026-11-15。 |
+| 伤病样本 | `data/staging/injury_reports/` 三份提取文本；`data/collected/injury_news_2026-11-17/` 历史核对为 124 条伤病记录、67 条球队提交状态、25 个本地比赛映射和 1 个状态变化。 | 当时本地原 PDF 数为 0，50 个唯一球员名未匹配；不是完整历史伤病库。 |
+| 既有采集测试 | 2026-11-19 记录：`python -m unittest discover -s tests -v`，24 项离线测试通过。 | 不证明当前云端可达；本次纯文档整理未重跑。 |
+
+### 2026-11-20 回合可行性核对
+
+- SQLite 以 `mode=ro` 与 `PRAGMA query_only=ON` 检查。全表 13,592,899 条事件的 `pctimestring` 无 NULL/空字符串，`period` 和 `eventnum` 无 NULL；这是字段存在性检查，不保证时钟、排序或比赛完整性。
+- `pctimestring` 是节内比赛时钟，`wctimestring` 是另一个现实时间字符串。存在事件类型、描述、比分更新与参与球员/球队；没有现成的 possession_id、回合耗时、完整场上阵容或投篮时钟列。
+- `game_id=0029600012`：1996-11-01 湖人对太阳；Q1 11:43 O'Neal 防守篮板，11:29 湖人三分不中，11:27 Cassell 防守篮板，构成可核对的 16 秒、0 分湖人回合。
+- 非得分事件 score 通常为空，需在同场按正确顺序沿用此前已知比分；仅在确认比赛开头时初始化 0–0。两条投篮命中事件缺少 score，重建时需检查。
+- `game_id=0032200001` 是 All-Star，样本有连续多个 Q4 `0:00` 事件；game 表该 ID 出现 `All-Star` / `All Star` 两行。先筛选规则一致的比赛、验证关联键，避免 join 膨胀。
+- 部分球队 ID 是带 `.0` 后缀的字符串，关联前需规范。事件参与者不代表完整阵容，不能据此直接承诺球员影响模型。
+
+## 8. 数据质量、时间与建模约束
+
+- 原 SQLite、JSON、PDF/提取文本只读保留；派生数据另存，保留源事件 ID、质量标记、数据/模型版本、场景版本和运行种子。
+- 回合重建需处理进攻篮板、罚球、技术犯规、同时间事件、重复/乱序、节末和加时。异常记录隔离并报告，不能静默当作零分或零耗时。
+- 节末只计入截止时刻发生的模拟得分，不能将超时后的整回合得分加入；必要时保留回合内相对时间和事件顺序。
+- 初始状态只能使用当时已知信息；之后的模拟状态由模拟结果更新，不能继续读取真实比赛后续比分。
+- 数据按比赛日期划分训练/验证/测试，同场事件不跨集合。概率估计、球队统计和参考分布只能用允许的历史数据；hyperparameters 在验证集选择，测试集不用于调参。
+- 检查基准模型的胜率校准、Brier score、log loss、分差/总分误差与区间覆盖率；同场多个时点相关，评估不确定性按比赛处理。
+- 人工调整后的情景没有真实反事实标签，不能用原赛果直接证明 override 更准确。Monte Carlo 抽样误差与模型误差分开报告。
+
+## 9. 存储与采集约定
+
+- RDS 复用现有部署，新业务与 warehouse 使用明确隔离的 schema；实验/场景/运行/审查属于 operational data，历史库不用先伪造成交易再入仓。
+- Atlas 优先复用现有集群：`nba_project.odds_snapshots`、`nba_project.news_articles`；新增研究/审查文档 collection 时明确稳定 ID、版本与唯一索引。Atlas 不是“Amazon MongoDB”。
+- 一场比赛的一次赔率采集快照是一条文档，保留 `raw.bookmakers[].markets[].outcomes[]`；不同采集时刻独立保存，同一快照补传不重复。
+- 新闻按来源文章 ID 去重，保存正文、URL、发布时间、获取时间和标签；旧批次不能覆盖更新内容。`rag_ready` 仅表示有正文，不代表已向量化。
+- 既定新闻目标范围仍为 **2023-11-17 至 2026-11-17**，尚未完成三年回填。不得静默改成最近七天；该范围也不自动满足历史 simulator 的证据需求。
+- 当前开发优先复用样本，不持续轮询；页面刷新读数据库，不每次交互请求外部 API。新增采集先明确用途、时间范围、请求预算。
+- Atlas 剩余空间未测量；先量正文、索引及已有数据占用，再决定扩容。不要保证三年资料装得下或自动迁往 EC2。
+- 跨 RDS/Atlas 保存场景与证据时使用稳定关联 ID、幂等和可恢复状态；不能假定跨库事务原子完成。
+
+## 10. 当前目录与运行方式
+
+| 路径 | 用途 |
+| --- | --- |
+| `scripts/look_at_nba_sqlite.py` | 查看本地 SQLite 结构和行数。 |
+| `scripts/migrate_sqlite_to_rds.py` | 已完成迁移的保留脚本；创建目标库并复制数据，不是日常开发起点。 |
+| `scripts/collect_odds_to_mongodb.py` | 单次采集；支持 `--import-file` 补传、`--dry-run` 预览和 `--check-connection`。 |
+| `scripts/collect_guardian_to_mongodb.py` | 单页 Atlas 入库、`--resume` 补传和 `--backfill` 本地历史回填；`--backfill --plan` 查看计划。 |
+| `scripts/build_injury_news_sample.py` | 从已有文本离线生成伤病样本与映射。 |
+| `scripts/download_injury_pdfs.py` | 已发现三份 PDF 的下载队列，不是三年历史采集器。 |
+| `scripts/collect_odds_sample.ps1` | 早期单次赔率采集与 CSV 导出。 |
+| `data/raw/`、`data/staging/`、`data/collected/` | 原始数据、提取文本与带时间的响应/日志。 |
+| `data/metadata/`、`tests/`、`docs/` | 数据目录与字典、离线测试、课程要求/当前 Word proposal/历史计划。 |
+
+从仓库根目录运行，优先使用现有 `msba` 环境。当前机器已使用 `D:/Miniconda3/envs/msba/python.exe`；不要假定其他机器路径相同。
 
 ```powershell
 python -m pip install -r requirements.txt
 python -m unittest discover -s tests -v
 python -m compileall scripts
+python scripts/look_at_nba_sqlite.py
 ```
 
-没有统一 build、formatter、linter 或 dependency lockfile。语法检查不能代替数据库行为验证。
-
-仅检查 Atlas（会检查/创建查询索引，不请求新闻或赔率 API）：
+安全的离线预览：
 
 ```powershell
-python scripts/collect_odds_to_mongodb.py --check-connection
-python scripts/collect_guardian_to_mongodb.py --check-connection
-```
-
-用户需要新增采集时再执行；以下命令会请求外部 API 并写入云端：
-
-```powershell
-python scripts/collect_odds_to_mongodb.py
-python scripts/collect_guardian_to_mongodb.py --start 2023-11-17 --end 2026-11-17 --page-size 10 --page 1
-```
-
-失败后复用原始文件，避免重新消耗请求。下面第一条仅离线预览，移除 `--dry-run` 才写库；第二条直接补传 MongoDB，不请求 Guardian：
-
-```powershell
+python scripts/collect_guardian_to_mongodb.py --backfill --plan
 python scripts/collect_odds_to_mongodb.py --import-file data/collected/odds_mongodb_20261118T021208Z_ccbe3ddf/odds_raw.json --dry-run
-python scripts/collect_guardian_to_mongodb.py --resume data/collected/guardian_mongodb_20261118T025946Z_e999017a
 ```
 
-探索旧数据时，先 `Set-Location data/raw` 再运行 `python look.py`。`connect.py` 会写 MySQL；迁移脚本会创建目标库，执行前核对目标及用户授权。
+`--check-connection` 会连接 Atlas，并可能创建索引；普通采集命令会请求 API/写云端；`--resume` 会补传文档。不要把这些命令当作无副作用的测试。失败后优先复用已有 JSON，保留失败日志，以后续成功记录判断历史进度。
 
-## Coding Style & Testing Guidelines
+## 11. Agent、代码与配置约束
 
-使用 4 空格缩进、函数/变量 `snake_case`、常量 `UPPER_SNAKE_CASE`。Python 文件名清晰，使用简短 docstring、script-relative paths 和 `main()`。保持代码让初级数据分析师也能读懂，避免无必要的框架和抽象。
+- 用户说 `simple ds` 时使用 readable-data-science skill；说 `grill me` 时使用 grilling skill。默认中文解释，保留必要英文术语。
+- 保持 Python 简单、可追踪：4 空格缩进、snake_case、清晰文件名、简短 docstring、script-relative paths 和 `main()`；避免无必要框架。
+- 用标准库 unittest 和离线 fixture 验证关键行为，不用真实 key 或真实云端写入作为普通测试。纯文档变更无需新增或重跑无关业务测试；语法检查不替代数据库行为验证。
+- 区分“代码存在”“离线测试通过”“历史日志成功”“当前云端验证”。报告进度先查对应文件和日志，标注证据日期。
+- 新代码使用环境变量或隐藏输入，日志不打印凭据；不提交数据库导出或 API 原始数据。2026-11-19 整理已将 collector 配置改为环境变量/隐藏输入，不再沿用旧的硬编码凭据待办。
+- `.gitignore` / `.env.example` 已存在。仓库已有 Git 元数据，目标为 `https://github.com/BarryNiu-Wahaha/nba-sportsbook-market-intelligence`；提交代码、文档、测试与 metadata，排除原始/采集数据、凭据、本地 helper 和 release 包。
+- Commit 用简短祈使句；PR 说明行为、验证和数据库影响。文档整理不自动初始化仓库、提交或发布；发布时核实远端结果，不仅凭本地准备声明成功。
+- 在已有授权内直接完成准备、可逆修改和离线验证，不重复询问已确认事项；新增付费资源、持续采集或扩大量级须先明确预算与授权。
+- 临时工具脚本用完删除；优先直接工具编辑或内联命令。用户要求删旧文档内容时，只清理指定文档范围，不据此删除数据、代码、视频或其他未请求的文件。
+- 每次实质工作后维护本文件的日期、证据与下一步，保持一个当前目标，不靠堆叠互相冲突的历史计划记录进度。
 
-使用标准库 unittest，命名 `tests/test_*.py`，暂无 coverage 门槛。测试临时文件和模拟 API/数据库，不使用真实 key 或真实 Atlas 写入。验证关键行为：单次请求、连接失败不耗 API、原文保留、稳定 ID、去重、日期边界、断点补传和缺失正文。
+## 12. 下一步与本次整理记录
 
-迁移变更用小 SQLite fixture 和独立可丢弃 MySQL 库验证：表名、行数、字段、空表与代表性数值。不要为纯文档变更新增无意义测试。
+1. **回合可行性**：先选一小批常规赛（约 100 场作为起始建议），重建回合和五项事件特征，核对逐节/最终比分、时间、球权及规则边界。
+2. **最小模拟内核**：建立条件经验分布、联合抽样、五项权重与有效期；从一个回合起点生成基准/场景对比，验证复现、归一化与规则处理。
+3. **最小操作闭环**：实现比赛回放 → 调整 → 比较 → 保存/撤销；RDS 存结构化状态，Atlas 存理由和证据文档。
+4. **Spark 与 warehouse**：扩大到百万级真实事件，执行批量回放、基准验证、幂等 ETL 与星型分析；测量单机和多节点表现。
+5. **三个页面与 RAG**：完成页面衔接、研究引用、文档/场景版本关联和辅助模型表现标签；根据问题需要补齐同时间范围的研究语料。
+6. **AWS 与交付**：明确资源预算后部署，验证 URL、持久化和重启恢复，完成报告、视频、代码与团队展示。实际期限、团队投入和云预算尚未确定。
 
-## Commit & Pull Request Guidelines
+### 2026-11-21 目标整理
 
-当前目录没有 Git 元数据，无法推断历史 commit 风格。使用简短祈使句，例如 `Validate migration row counts`。PR 说明问题、改动、验证和数据库影响；关联 issue（如有）。不要为了写进度文档擅自初始化或发布仓库。
+- 按用户要求将最新目标写为 Markdown，并清理旧内容。现已统一为三个主页面、五项 Trader 调整、关键节点人工操作与回合起点自动预测。
+- 删除了乱码交接段、过时脚本路径、“无 Git 仓库”、旧凭据待办，以及 KNN/新闻优先等冲突任务；保留仍有效的课程要求、数据与验证证据、配置约束。
+- 本次只修改 `AGENTS.md`；检查本地脚本路径、课程原文和状态日志，不改代码、不请求外部 API、不连接云端、不运行模拟、不创建临时脚本。原始数据、已有计划文件、视频和其他工作区改动保留。
 
-## Data & Configuration Safety
+### 2026-11-21 Word proposal 更新
 
-- 不提交凭据或数据库导出。新代码使用 `MONGODB_URI`、`ODDS_API_KEY`、`GUARDIAN_API_KEY` 环境变量或隐藏输入，日志不打印秘密。
-- **实际待办**：当前 `collect_odds_to_mongodb.py` 和 `collect_guardian_to_mongodb.py` 含直接赋值的 MongoDB 连接串。不要打印、复制或写进文档；后续整理应移回环境变量/隐藏输入。本次仅更新文档，没有改用户修改的采集脚本。
-- 保留原始 SQLite、JSON、PDF/提取文本和来源时间。失败与成功分别记录，不伪造完成状态。
-- Odds 默认单次 NBA/us/h2h 请求，不自动重试或启动 scheduler；Guardian 使用独立 key/额度，默认单页 10 条。扩大采集前明确预算。
-- 迁移只复制字段和数据，不完整复制索引、键、默认值、视图或触发器；失败可能留下部分数据，遵循迁移脚本的新目标库策略处理。
-
-## Data Modeling & RAG Instructions
-
-- **赔率**：一场比赛的一次采集快照是一条文档；保留 `raw.bookmakers[].markets[].outcomes[]`。不同采集时刻独立保存，同一快照补传不重复。
-- **新闻**：一篇文章一条文档，按来源文章 ID 去重；正文、URL、发布时间、采集时间和标签一起保存。旧批次不能覆盖更新的内容；`rag_ready` 目前只表示有正文，不代表已向量化。
-- **伤病**：保留报告时间、比赛、球队、球员、状态、原因。`not submitted` 或未列入报告不能解释成健康/可出场。
-- **Metadata**：保留 source、源 ID、本地 ID、URL、发布时间及获取时间。球队/球员/比赛映射必须可追溯；2026 新闻和赔率可能无法匹配截至 2023 的历史库，未匹配项留空，不能强行关联。
-- **赛前时点**：KNN 特征只使用开赛前已知信息；历史调查按相应时点过滤新闻、伤病和赔率，不使用最终赛果构造该场赛前特征。
-- **RAG**：正文/报告文本 → 语义切块 → embedding → ChromaDB 或 Qdrant。片段保留文档 ID、URL、报告时间、球队/球员，以及可获得的 PDF 页码。
-- 检索后把原文片段交给模型并引用来源；官方状态与媒体解释分开。精确统计、报价和状态优先结构化查询；缺乏证据时说明缺失。
-- Guardian 是单一媒体来源，不保证完整覆盖。链接、AI 短摘要和原文不是同一种证据；新增来源时核实访问及使用条件，不承诺未经确认的全文/历史覆盖。
-
-## Next Work — Recommended Order
-
-1. 整理凭据配置；检查已入库的 10 篇新闻正文是否适合目标问题，测量 Atlas 数据和索引占用。
-2. 补充官方伤病 PDF 原件、解析及 Atlas 入库；现有 3 份提取文本可以先用于开发，记录历史日期缺口。
-3. 在明确预算下继续 Guardian 分页并去重、记录覆盖率。389 是此次查询当时的匹配数，后续可能变化。
-4. 建立 metadata 和小型 RAG：正文 → chunks → embeddings → 持久化向量库 → 带引用问答；用代表性问题验证时间过滤与检索，再扩量。
-5. 实施 Spark 历史特征、Star/Snowflake warehouse、RDS alerts/investigations、KNN 和 Streamlit 三个页面。
-6. 集成并部署 AWS 应用及持久化服务，验证 URL、重启后数据保留和日志，完成报告、视频与团队演示。
-
-S3 和迁移 MongoDB 到 EC2 均延后；只有用户改变决定或实际测量表明需要时再规划。
-
-## Team Handoff ? 2026-11-19
-
-- ????????????????????? S3???????????/???????????????? metadata????????????????????????????/??????
-- ?????`START_HERE.html`?`README.md`??????proposal ????????? `docs/requirements/`?`docs/proposal/`?`docs/planning/`??????????
-- `data/metadata/`?30 ???/???????390 ? CSV/JSON ???????16 ? SQLite ?? 341 ???????? SQL ????? SHA-256????????????????????????????????
-- ?????????? `connect.py` ????????????????????????? `MANIFEST.csv`??????????????????????
-- ?????? Guardian wrapper?`payload.response.results` ? 10 ??????? **2026-10-28T19:25:28Z ? 2026-11-15T01:26:32Z**?????????????
-- ?? NBA SQLite ? **2,349,588,480 bytes**???????????????? `data/metadata/sqlite_tables.csv`?????????????
-- ???`D:/Miniconda3/envs/msba/python.exe -m unittest discover -s tests -v` **19 ???**??????????????????????????????
-- ??? Word ?????? `data/raw/migrate_sqlite_to_rds.py` ???? Windows ????????????? `docs/planning/` ? `scripts/` ????????????????
-- ???? `release/draftkings-team/` ?????????????? 63 ????? manifest????????????? 2.35 GB??????? 19 ?????????HTML ????? 30 ?????????????????????????????? `.local`??????????Office ??????????????? SHA-256 ?????? `MANIFEST.csv`?????????? metadata ??????
-
-## Collector Consolidation ? 2026-11-19
-
-- ??????? SimpleDS/readable-data-science ????????? `scripts/` ? 8 ????????? Guardian ????????????????????
-- ????? `import_odds_to_mongodb.py` ? `collect_guardian_news.py`???????????? `--import-file JSON [--dry-run] [--captured-at TIME]` ???Guardian ??????? Atlas?`--resume BATCH` ???`--backfill` ???????`--backfill --plan` ??????????? Atlas?
-- ?? API ?????????????????????? ID?????????????????????????????????????????????? API?????????????
-- ???24 ??????????? 5 ??????????????????????????????? ID?Guardian ???? fixture ??????????JSON/CSV/coverage???????
-- README??????????????????????????? 62?? `MANIFEST.csv`??????? metadata ???????
-
-## Agent-Specific Instructions
-
-- 用户说 `simple ds` 时使用 readable-data-science skill；说 `grill me` 时使用 grilling skill。
-- 默认中文解释，保留必要英文术语；写简单、可追踪的 Python。普通计划按用户偏好用简洁说明、HTML 或 Word；本文件是明确要求的 Markdown 指令和进度记录。
-- 先查当前脚本和最新 collection_status.json，再报告状态。区分“代码存在”“离线测试通过”“用户运行成功”“当前云端重新验证”。
-- 在已有授权内直接推进准备、可逆修复和离线验证，不重复询问已确认事项。新增付费资源、持续采集或扩大量级不属于默认授权。
-- 继续维护**本文件**，不要另建 agent.md 或重复的项目状态文档。实质工作完成后更新日期、证据路径、状态及下一步；不记录凭据或未验证的完成声明。
-
-
-## GitHub publication preparation ? 2026-11-19
-
-- Target: https://github.com/BarryNiu-Wahaha/nba-sportsbook-market-intelligence (`main`). Preserve the existing remote README commit as the parent of the project commit.
-- Existing `.gitignore` and `.env.example` checked. Publish code, docs, tests and `data/metadata/`; exclude raw/staging/collected data, database files, credentials, local helpers and release packages.
-- Pre-publication scan of 31 candidate files (including PDF and DOCX text) found no credential-pattern matches or literal Python credential assignments. Earlier notes about hard-coded collector credentials are historical; current collectors use environment variables / hidden input.
-- Verification: `D:/Miniconda3/envs/msba/python.exe -m unittest discover -s tests -v` passed all 24 offline tests. This does not verify current cloud connectivity.
-- README startup instructions now use GitHub and the existing `scripts/look_at_nba_sqlite.py`; data access is separate. No S3 upload, API collection or database migration performed.
-- Remove temporary publication helper scripts after use. Verify remote main matches local HEAD after pushing; push success is not asserted by this preparation entry.
+- 按用户后续要求，重新生成 `docs/proposal/DraftKings Project Proposal.docx`，不另建问题文档。替代旧 proposal PDF 与旧工作流图，README 同步新目标与现有脚本路径；旧 HTML 计划标为历史参考。
+- 用 Microsoft Word 实际打开、重新分页并更新页码，确认 **2 页**；检查导出预览的两页，正文与表格完整。Word 内容为拟实施方案，不宣称系统已经完成。
+- 生成和检查采用内联命令，不创建 Python 工具脚本；临时 PDF/PNG 预览检查后删除，不作为交付物。原始数据和本地参考演讲视频不提交。
+- 用户已授权本次文档提交并推送；发布完成以 GitHub `main` 与本地 commit 一致为准。本次不改业务代码、不运行采集或数据库迁移。

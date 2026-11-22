@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>项目下一步计划 · 2026年11月19日</title>
+<style>
+:root{color-scheme:light;font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:#213047;background:#f3f5f8}*{box-sizing:border-box}body{margin:0;line-height:1.8}main{max-width:960px;margin:36px auto;padding:40px 48px;background:#fff;border:1px solid #dce3ed;border-radius:12px}h1{font-size:30px;line-height:1.4;margin:8px 0 14px}h2{font-size:22px;margin:36px 0 12px}h3{font-size:17px;margin:22px 0 8px}p{margin:10px 0}.date{color:#52627a;font-size:14px}.callout{background:#edf5ff;border-left:4px solid #2867ab;padding:14px 20px;margin:22px 0}.muted{color:#52627a}a{color:#175ca1}code{background:#eef2f7;padding:2px 5px;border-radius:4px;font-size:.94em;overflow-wrap:anywhere}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:15px 0;font-size:14px}th,td{padding:11px 12px;border:1px solid #dce3ed;text-align:left;vertical-align:top}th{background:#edf2f8}ul,ol{padding-left:24px}li{margin:7px 0}.flow{padding:16px 20px;background:#f6f8fb;border:1px solid #dce3ed;white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.9 system-ui,"Microsoft YaHei",sans-serif}footer{margin-top:36px;padding-top:18px;border-top:1px solid #dce3ed;font-size:13px;color:#52627a}@media(max-width:640px){main{margin:0;padding:24px 18px;border:0;border-radius:0}h1{font-size:25px}th,td{padding:8px}}@media print{body{background:#fff}main{max-width:none;margin:0;padding:0;border:0}h2,h3{break-after:avoid}tr,.callout{break-inside:avoid}a{color:inherit}footer{font-size:11px}}
+</style>
+</head>
+<body><main>
+<div class="date">DraftKings Market Monitoring &amp; Investigation Platform</div>
+<h1>项目下一步计划</h1>
+<p><strong>记录日期：2026年11月19日</strong> · America/New_York（UTC−05:00）</p>
+<p class="muted">本次讨论的推进建议与验收标准。文中的业务表、页面和后续 pipeline 是待实施方案；本文记录计划，不表示已经建表或完成应用。</p>
+<div class="callout"><strong>第一步：</strong>设计一个小型业务操作数据库，并用最简 Streamlit 页面跑通“查看赔率 → 创建调查 → 添加备注 → 更新状态”。随后实施 Spark、数据仓库、相似比赛检索和 RAG。</div>
+
+<h2>1. 小型 Operational Database 到底是什么</h2>
+<p><strong>Operational Database（业务操作数据库）保存用户使用系统时产生的业务记录。</strong>在这个项目中，用户是 sportsbook trading analyst。他查看赔率后创建了一项调查、写下备注、把状态改为已处理，这些记录就是 operational data。</p>
+<p>“小型”指第一版只实现必要的几张表和一条完整流程，不是要求制造大量交易数据，也不是要求重新迁移 NBA 历史库。</p>
+<p><strong>举例：</strong>分析师发现一场比赛的 DraftKings moneyline 与其他博彩公司报价存在差异，在平台中点击“创建调查”；写下“需要核对报价更新时间”；检查后将状态从 <code>open</code> 改为 <code>reviewed</code>。刷新页面后，记录仍可读取。这就是一个可以演示的业务操作。</p>
+<div class="table-wrap"><table><thead><tr><th>概念</th><th>本项目中的含义</th></tr></thead><tbody>
+<tr><td>RDS</td><td>数据库托管服务；数据库放在哪里，并不决定它是否属于 warehouse。</td></tr>
+<tr><td>Operational Database</td><td>支持创建、查询、更新调查与备注，维护业务状态和关联关系。</td></tr>
+<tr><td>Data Warehouse</td><td>通过 ETL/ELT 将源数据整理成明确粒度的事实表和维度表，支持统计分析。</td></tr>
+<tr><td>ER 图</td><td>表达实体及关系的设计图；画了 ER 图，不代表已经实现 operational 功能。</td></tr>
+</tbody></table></div>
+<p>现有 NBA 数据是历史数据源。将其复制进 RDS，并不自动完成课程要求的 Star/Snowflake warehouse。<strong>无需先把历史数据强行转换成模拟业务交易，再重新做 warehouse。</strong>历史数据可以直接进入分析 pipeline；应用自身另外产生调查记录。</p>
+
+<h2>2. 截至本次讨论的起点</h2>
+<ul>
+<li>用户已确认 RDS 连接与 NBA 数据迁移完成，MongoDB 也已连接；后续直接复用。</li>
+<li>本地 NBA 数据目录记录 16 张表，play-by-play 有 13,592,899 条，满足至少一个真实数据集超过百万条的规模要求。</li>
+<li>已有赔率和 Guardian 正文入库成功日志。Guardian 成功样本为 10 篇有正文文章；当前赔率样本为 <code>h2h / moneyline</code>。</li>
+<li>目前仍需实现业务操作表、Spark pipeline、Star/Snowflake warehouse、三个 Streamlit 功能以及 embeddings + vector database 的 RAG。</li>
+</ul>
+<p class="muted">本次建议基于用户确认、本地 metadata、采集脚本及已保存的成功日志；本次未重新连接云端验证数据库状态。</p>
+
+<h2>3. 第一版业务库建议只做四张表</h2>
+<div class="table-wrap"><table><thead><tr><th>建议表名</th><th>一条记录代表什么</th><th>建议保留的信息</th></tr></thead><tbody>
+<tr><td><code>market_events</code></td><td>一场当前监控的比赛</td><td>内部 ID、来源、外部比赛 ID、主客队、开赛时间。</td></tr>
+<tr><td><code>investigations</code></td><td>一次分析师调查</td><td>调查 ID、比赛 ID、标题、状态、创建时间、更新时间。</td></tr>
+<tr><td><code>investigation_notes</code></td><td>调查中的一条备注</td><td>备注 ID、调查 ID、正文、创建时间。</td></tr>
+<tr><td><code>investigation_evidence</code></td><td>一项调查证据引用</td><td>证据 ID、调查 ID、来源类型、文档或快照 ID、可用的 URL 与证据时间。</td></tr>
+</tbody></table></div>
+<p>关系是：一场比赛可以有多次调查；一次调查可以有多条备注和证据。MySQL 内部用主外键约束；引用 MongoDB 文档时保存稳定 ID，由应用检查目标是否存在。不要假设 MySQL 外键可以约束 MongoDB。</p>
+<p>建议在现有 RDS MySQL 实例中使用独立 database，例如 <code>nba_ops</code>；将未来 warehouse 放入另一个 database，例如 <code>nba_dw</code>。这是建议命名，并未创建。既有历史库保留，避免重新迁移或覆盖。</p>
+<p>MongoDB 继续保存赔率快照、新闻正文和后续伤病文档。当前比赛与截至 2023 年的历史比赛无法匹配时，历史映射留空，不强行关联。</p>
+
+<h2>4. 现在第一步具体怎么做</h2>
+<ol>
+<li><strong>确定一条业务流程：</strong>从已有赔率选一场比赛，允许分析师创建调查、添加备注和修改状态。</li>
+<li><strong>确定表关系：</strong>为上述四张表列出字段、主键、外键、必填项和状态值，形成小型 ER 图与建表 SQL。</li>
+<li><strong>实现业务写入：</strong>在独立 operational database 中建表，实现创建调查、写备注、更新状态和读取列表。保存调查及初始证据时使用事务，避免只写入一半。</li>
+<li><strong>做最简 Streamlit 页面：</strong>读取 MongoDB 已有赔率；按同一比赛、同一市场、同一结果比较报价，显示采集及报价时间，提供“创建调查”入口。</li>
+<li><strong>完成一轮演示：</strong>创建调查 → 添加备注 → 改为 <code>reviewed</code> → 刷新页面 → 再读出记录。</li>
+</ol>
+<div class="callout"><strong>第一阶段验收：</strong>页面能读出已有赔率；用户操作能写入 RDS；调查关联比赛与证据；状态和备注在刷新后保留；页面交互不触发新的外部 API 采集。</div>
+<p>样本页面应明确显示数据日期，不能把保存的报价称为实时行情。单次快照可用于横向比较，不能据此生成赔率变化趋势。原始赔率差异与隐含概率差异也应分别标明单位。</p>
+
+<h2>5. 后续实施顺序</h2>
+<div class="table-wrap"><table><thead><tr><th>阶段</th><th>要交付什么</th><th>完成标准</th></tr></thead><tbody>
+<tr><td>① Operational + 最简 Dashboard</td><td>四张业务表、业务写入、赔率列表、调查入口。</td><td>查看赔率、创建调查、保存备注和更新状态完整跑通。</td></tr>
+<tr><td>② Spark + ETL + Warehouse</td><td>对历史数据进行有用途的清洗、聚合；把结果加载到事实表和维度表。</td><td>明确粒度、键和质量规则；保留处理行数及日志；重复加载不无故产生重复记录。</td></tr>
+<tr><td>③ Similar Game Finder</td><td>赛前特征、标准化、KNN 和结果解释。</td><td>先支持历史比赛之间的检索；展示相似依据及最终分差背景；无未来信息泄漏。</td></tr>
+<tr><td>④ RAG Research Assistant</td><td>正文切块、embedding、持久化 ChromaDB 或 Qdrant、检索和带来源回答。</td><td>保留来源与时间过滤；缺乏证据时说明；用代表性问题验证检索结果。</td></tr>
+<tr><td>⑤ AWS 集成与交付</td><td>应用 URL、数据库连接、向量索引持久化、报告和演示。</td><td>URL 可访问，重启后数据保留，团队能解释完整架构。</td></tr>
+</tbody></table></div>
+<p>第①阶段跑通后可以提前做一次最小 AWS 部署，发现环境与网络问题；最终再完成整体集成。具体工期应按课程截止日和团队分工安排，这里的序号表示依赖顺序，不是已经承诺的完成日期。</p>
+
+<h3>Warehouse 的第一版粒度</h3>
+<ul>
+<li><code>fact_team_game</code>：一支球队在一场比赛中的表现，配套球队、日期等维度。</li>
+<li><code>fact_odds_quote</code>：某次快照中，一场比赛、一个博彩公司、一个市场、一个结果的一条报价。</li>
+<li>调查记录后续通过 ETL 接入分析层，可统计调查数量、状态和处理时长。</li>
+</ul>
+<div class="flow" role="img" aria-label="源数据经处理进入分析层的数据流">NBA 历史数据 → Spark 清洗与聚合 → 比赛事实表 / 历史赛前特征
+MongoDB 赔率 → ETL 展开与统一格式 → 报价事实表
+RDS 调查记录 → ETL 整理 → 调查分析表
+                              ↓
+                    Warehouse → 分析图表 / Similar Game Finder
+
+MongoDB 新闻与报告文本 → 切块 → Embedding → 向量库 → RAG 回答</div>
+<p>Spark 应实际处理超过百万条的 NBA 数据并产生可使用的结果，不能只在架构图里出现。历史赛前特征可以从过去比赛聚合生成；当前比赛最终得分、最终分差不能进入该场比赛的赛前特征。</p>
+
+<h2>6. 为什么暂时不把 Chatbot 放在第一步</h2>
+<p>聊天界面本身不能补齐 operational、Spark 和 warehouse 的课程要求。当前 10 篇 Guardian 正文足够用于小型检索试验，但不保证覆盖目标比赛、球员或伤病问题。</p>
+<p>先做调查流程，可以让 RDS 和 MongoDB 都被实际应用使用。RAG 随后围绕具体调查问题接入；检索到的新闻或报告也能保存为调查证据，功能之间更容易连起来。</p>
+<ul>
+<li>Guardian 新闻正文入库不代表已经完成 RAG；仍需切块、embedding、向量检索和回答引用。</li>
+<li>官方伤病状态与媒体解释分开；新闻相关性不能证明赔率变化的因果。</li>
+<li>历史 NBA 截至 2023 年，当前新闻和赔率是 2026 年样本；第一版相似比赛功能先限定历史查询。</li>
+<li>继续复用现有资源；本计划不要求新增付费服务、不启动持续采集、不要求启用 S3 或购买 Redshift。</li>
+</ul>
+
+<h2>7. 参考与后续阅读</h2>
+<ul>
+<li><a href="../requirements/The%20project%20requirement.txt">课程 requirement</a>：要求 RDBMS 与 NoSQL operational data、Spark/Hadoop、ETL/ELT、Star/Snowflake warehouse、Streamlit、RAG 和 AWS working application。</li>
+<li><a href="../../data/metadata/sqlite_tables.csv">历史 NBA 表与行数</a>、<a href="../../data/metadata/README.md">metadata 使用说明</a>。</li>
+<li><a href="../../README.md">项目 README</a>、<a href="../../AGENTS.md">项目决策与进度记录</a>。</li>
+<li><a href="https://aws.amazon.com/compare/the-difference-between-olap-and-oltp/">AWS 对 OLTP 与 OLAP 的说明</a>：两者针对日常业务处理和分析查询的不同用途。</li>
+</ul>
+<footer>日期：2026年11月19日（America/New_York）。用途：保存本次 Next Steps 讨论。下次推进从第4节的第一阶段任务开始；实施后的完成情况继续记录在 AGENTS.md。</footer>
+</main></body></html>

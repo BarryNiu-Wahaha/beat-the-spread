@@ -20,7 +20,7 @@ Use [AGENTS.md](AGENTS.md) for the latest scope and priorities, the proposal for
 
 Current handoffs (24 November 2026):
 
-- [RDS-to-EMR-HDFS migration](docs/handoffs/2026-11-24-rds-to-emr-hdfs-migration.md): immediate pipeline task, constraints and validation checklist (Chinese).
+- [RDS-to-EMR-HDFS migration](docs/handoffs/2026-11-24-rds-to-emr-hdfs-migration.md): immediate pipeline task, constraints and validation checklist (English first, followed by the Chinese original).
 - [Trader operational database and simulation warehouse](docs/handoffs/2026-11-24-trader-operational-database-and-simulation-warehouse.md): proposed normalized operational model and analytical warehouse design (English).
 
 ## Folder map

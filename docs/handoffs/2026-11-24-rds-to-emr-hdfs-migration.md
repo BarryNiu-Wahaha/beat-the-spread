@@ -1,9 +1,152 @@
-# NBA 历史数据：RDS → EMR HDFS 迁移交接 Note
+# NBA Historical Data Migration: RDS → EMR HDFS — Handoff
+
+English version first; the original Chinese version follows below.
+
+- Created: 2026-11-24 20:53:05 EST (America/New_York, UTC−05:00).
+- UTC: 2026-11-25 01:53:05 UTC.
+- Name: RDS-to-HDFS Historical Data Pipeline — Next-session Inspection Checklist.
+- Status: requirements recorded; migration code, EMR execution, and cloud validation are not yet complete.
+- Scope of this note: preserve the handoff and update project guidance. No migration was performed when this note was prepared.
+
+## 1. Start here next time
+
+Read the root [AGENTS.md](../../AGENTS.md), then this note. The final product remains the NBA Game Monitoring and What-if Simulation Platform. The immediate priority is a reliable historical data storage and Spark access pipeline.
+
+Confirmed route:
+
+```text
+Existing AWS RDS MySQL (preserve original data)
+    → Spark JDBC
+    → Parquet files
+    → HDFS on AWS EMR on EC2
+    → PySpark / Spark SQL exploration
+```
+
+Acceptance requires repeatability, data fidelity, recoverable failures, and measured evidence. Successfully writing files alone does not establish completion.
+
+Do not develop the Monte Carlo simulator, Streamlit dashboard, Star/Snowflake warehouse, or RAG during this phase. Possession reconstruction is a downstream use case; establish raw data access first.
+
+## 2. Confirmed constraints
+
+- The school environment permits **1 Primary Node + 1 Core Node**, using AWS EMR on EC2.
+- Use PySpark, HDFS, and Parquet. Do not add Sqoop, Hive, Pig, Kafka, or S3.
+- Do not create new paid AWS resources. Reuse existing resources the user authorizes access to.
+- Under the specified single-Core topology, blocks reside on one storage worker. Multicore parallelism is possible, but do not claim storage or computation distributed across multiple workers. Inspect and record actual DataNode and executor placement.
+- HDFS manages block allocation automatically. JDBC read partitioning, Spark write partitioning, and HDFS blocks are separate concerns.
+- HDFS data may be lost when EMR is terminated. Preserve the RDS source and make migration rerunnable so HDFS can be rebuilt.
+- Record existing duplicates, unusual fields, and NULL values. Do not clean, deduplicate, or delete source records during migration.
+
+## 3. Existing evidence and unverified items
+
+| Area | Existing evidence | Not yet verified |
+| --- | --- | --- |
+| Source data | Local read-only SQLite check on 2026-11-24: 16 tables, 2,349,588,480 bytes; play_by_play has 13,592,899 rows | Current RDS row counts and schemas |
+| RDS | User previously confirmed the SQLite-to-RDS migration; migration script retained | Current connectivity, permissions, indexes, server version, and load |
+| Type mapping | Existing migration maps TEXT to LONGTEXT and does not copy indexes or keys | Whether cloud schemas or indexes have since changed |
+| Exploration SQL | scripts/explore_nba_source.sql exists; 13 data queries previously passed local schema/query-plan checks | MySQL execution/performance and Spark SQL adaptation |
+| Offline tests | Existing collectors passed 24 tests on 2026-11-24 | New pipeline tests; existing tests do not cover this pipeline |
+| EMR/HDFS | Deployment approach and school node limits specified by user | Cluster ID, state, versions, network, capacity, DataNode layout, JDBC driver |
+| Migration/performance | No execution evidence for this task yet | Parquet output, integrity reports, block placement, and benchmark results |
+
+The original database is the historical source; an HDFS raw layer does not by itself satisfy the course's analytical warehouse requirement.
+
+Existing references:
+
+- [RDS migration script](../../scripts/migrate_sqlite_to_rds.py): reuse configuration and type-mapping knowledge; do not rerun the historical migration.
+- [MySQL exploration SQL](../../scripts/explore_nba_source.sql).
+- [Table counts](../../data/metadata/sqlite_tables.csv), [columns](../../data/metadata/sqlite_columns.csv), and [data interpretation](../../data/metadata/README.md).
+- [.env.example](../../.env.example) and [requirements.txt](../../requirements.txt).
+
+## 4. Next-session inspection order
+
+### A. Repository and environment
+
+- [ ] Read AGENTS.md, scripts, configuration templates, metadata, and Git status; preserve the user's uncommitted changes.
+- [ ] Confirm the existing EMR Cluster ID, AWS Region, EMR release, and Spark/Hadoop/Java/Python versions.
+- [ ] Confirm the permitted SSH/job submission method, execution user, YARN resources, and HDFS directory permissions.
+- [ ] Inspect actual Primary/Core roles, DataNode count, free disk space, block size, and replication configuration.
+- [ ] Check RDS endpoint, port, actual database name, read-only access, TLS, and VPC/subnet/security group/DNS connectivity. Never put passwords in notes, command arguments, or logs.
+- [ ] Confirm RDS access from Spark driver/executors and availability of a compatible MySQL JDBC driver. Do not assume installation or download has succeeded.
+
+### B. RDS metadata and read strategy
+
+- [ ] Inspect all target RDS tables, column order, types, NULL properties, and indexes; compare with the local 16-table inventory. Do not indiscriminately copy unrelated business schemas.
+- [ ] Record per-table counts and read start times; establish whether the source remains unchanged during migration and validation.
+- [ ] If source tables can change, establish a consistency strategy first. Multiple JDBC connections do not automatically share one database snapshot.
+- [ ] Inspect game_id text types, leading zeros, IDs ending in .0, date strings, and existing duplicate game_id values.
+- [ ] Choose JDBC partitioning after reviewing indexes and query plans. Without a suitable index, evaluate serial batched reads first to avoid repeated full scans from parallel predicates.
+- [ ] Configure JDBC fetch size/concurrency separately from Spark write partitions. Four output partitions for play_by_play is an initial experiment, not a requirement; adjust using actual resources, compressed sizes, and elapsed time.
+
+### C. Local preparation and EMR execution
+
+- [ ] Write simple Python migration/exploration scripts and necessary offline tests, reusing existing configuration conventions such as RDS_HOST/RDS_USER.
+- [ ] Validate connectivity, type mapping, Parquet round trips, and status reporting with small tables before play_by_play and the full 16-table migration.
+- [ ] Define completed, incomplete, failed, retry, and remigration behavior. Refuse to overwrite existing targets by default.
+- [ ] Use distinct staging/run identifiers and publish each table only after validation; partially written data must not be marked successful.
+- [ ] Do not skip a table solely because its directory exists. Check manifests, source identity, and validation status. Do not automatically delete failed directories or previously validated data.
+- [ ] Deliver concrete commands the user can run on EMR, fill in actual environment parameters before execution, and never fabricate cloud validation.
+
+Example target layout (not yet created):
+
+```text
+/nba/raw/game/part-*.parquet
+/nba/raw/team/part-*.parquet
+/nba/raw/player/part-*.parquet
+/nba/raw/play_by_play/part-*.parquet
+...one directory for each of the remaining 12 tables
+```
+
+## 5. Migration acceptance checklist
+
+- [ ] For each of 16 tables, record source, target path, run ID, status, row count, Parquet data-file count, file sizes, and elapsed time.
+- [ ] Compare RDS row counts with Parquet readback counts. Empty tables must retain their schemas and be reported correctly.
+- [ ] Preserve the MySQL → Spark → Parquet type mapping and verify field names, order, values, and per-column NULL counts. Matching type names across systems is not the sole validation criterion.
+- [ ] Check game_id leading zeros and string lengths to detect losses caused by numeric conversion.
+- [ ] Preserve the multiplicity of existing duplicate records. Equal row counts cannot exclude equal amounts of loss and duplication. Define feasible content checks and their limits, distinguishing samples, digests, and full comparisons.
+- [ ] Read back all Parquet data to verify readability; report failed files and incomplete tables.
+- [ ] Measure HDFS block counts, replica status, and DataNode locations separately from file counts.
+- [ ] Record existing source quality issues, such as All-Star / All Star versions of one game_id, without fixing them in this phase.
+- [ ] Save reports and run configuration outside the disposable cluster in an existing permitted location. Do not keep the only copy in HDFS or introduce S3.
+
+## 6. Spark SQL and performance comparison
+
+Read Parquet directly from HDFS and register session-scoped temporary views, without requiring Hive:
+
+```python
+df = spark.read.parquet('hdfs:///nba/raw/play_by_play')
+df.createOrReplaceTempView('play_by_play')
+```
+
+- [ ] Adapt SELECT, WHERE, GROUP BY, ORDER BY, JOIN, and COUNT queries from the existing SQL. MySQL metadata queries cannot be used unchanged in Spark.
+- [ ] Include events for game_id = '0029600012', ordered by period/eventnum. Check duplicate game IDs to avoid join multiplication.
+- [ ] Compare MySQL and Spark SQL with the same data scope, equivalent query semantics, and result validation.
+- [ ] Force query execution and consume results; do not mistake Spark lazy-plan construction time for execution time.
+- [ ] Record first/repeated runs, cache state, repetitions, data scale, resources, MySQL indexes, and query plans. State whether Spark startup time is included.
+- [ ] Report actual timings and explain differences. Do not assume Spark is faster or present a single Core Node as evidence of multi-worker acceleration.
+
+## 7. Expected deliverables and status
+
+| Deliverable | Current status |
+| --- | --- |
+| RDS-to-HDFS Python migration script | Not implemented |
+| HDFS Parquet / Spark SQL exploration script | Not implemented |
+| Offline fixtures and key failure/rerun tests | Not implemented |
+| EMR configuration guide and concrete commands | Pending environment inspection |
+| Per-table migration and integrity report | Pending actual execution; do not label a template as successful results |
+| MySQL/Spark SQL benchmark report | Pending measurement |
+| This handoff and AGENTS.md phase update | Documentation deliverables |
+
+Suggested continuation prompt:
+
+> Read AGENTS.md and docs/handoffs/2026-11-24-rds-to-emr-hdfs-migration.md. Continue preparing the RDS → Spark JDBC → Parquet → HDFS → Spark SQL pipeline. Inspect the code and accessible environment first, complete local code and offline tests, then provide concrete EMR commands. Identify unverified items. Do not create paid resources, modify RDS data, or develop the simulator, UI, warehouse, or RAG.
+
+---
+
+# 中文原版：NBA 历史数据：RDS → EMR HDFS 迁移交接 Note
 
 - 创建时间：2026-11-24 20:53:05 EST（America/New_York，UTC−05:00）。
 - UTC 时间：2026-11-25 01:53:05 UTC。
 - 名称：RDS-to-HDFS 历史数据 Pipeline — 下次访问与检查清单。
-- 整理者：Codex；需求与技术路线由项目用户确定。
 - 状态：需求已记录；迁移代码、EMR 运行及云端验证尚未完成。
 - 本次范围：按用户后续要求保存交接 note，更新项目指引；本次不执行迁移。
 

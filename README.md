@@ -16,7 +16,12 @@ Model validation is an auxiliary tab/report. Spark will reconstruct possessions 
 
 [Earlier next steps — 19 November 2026](docs/planning/Next_Steps_2026-11-19.html): the preceding monitoring/investigation proposal, retained as historical context.
 
-Use the current proposal for scope and [data/metadata/README.md](data/metadata/README.md) for the data catalog. The handoff documentation is in English for the team.
+Use [AGENTS.md](AGENTS.md) for the latest scope and priorities, the proposal for the product outline, and [data/metadata/README.md](data/metadata/README.md) for the data catalog.
+
+Current handoffs (24 November 2026):
+
+- [RDS-to-EMR-HDFS migration](docs/handoffs/2026-11-24-rds-to-emr-hdfs-migration.md): immediate pipeline task, constraints and validation checklist (Chinese).
+- [Trader operational database and simulation warehouse](docs/handoffs/2026-11-24-trader-operational-database-and-simulation-warehouse.md): proposed normalized operational model and analytical warehouse design (English).
 
 ## Folder map
 
@@ -34,6 +39,7 @@ docs/
   requirements/         Course requirements
   proposal/             Current Word proposal, including architecture
   planning/             Earlier supporting plans; may lag actual data
+  handoffs/             Dated task and design handoffs; implementation status is explicit
 tests/                  Offline tests for existing data pipelines
 AGENTS.md               Maintained project decisions and progress evidence
 ```
@@ -128,7 +134,7 @@ Get credentials privately from the project owner. Do not put them in Python file
 
 ## Sharing code and data
 
-Share code through this GitHub repository. `.gitignore` excludes local data, credentials, environments, temporary files and the separate handoff folder. `.env.example` contains variable names only.
+Share code through this GitHub repository. `.gitignore` excludes local data, credentials, environments, temporary files and the local release package. Markdown handoffs in docs/handoffs/ are included in Git. `.env.example` contains variable names only.
 
 `release/draftkings-team/` is a separate local handoff package in the owner's workspace. Its `MANIFEST.csv` lists packaged files and SHA-256 hashes. It is not included in GitHub. Arrange data access privately with the owner; S3 is not required for this checkout and no S3 upload was performed as part of this publication. Metadata and checksums describe the collected snapshot, not files included in GitHub.
 

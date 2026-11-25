@@ -2,7 +2,27 @@
 
 目标整理日期：**2026-11-21，America/New_York**；最近进度核对：**2026-11-24**。本文件是本项目的目标、agent 执行指引和进度记录，继续维护本文件，不另建 `agent.md`。
 
+## 每次开始工作时：先读取最新交接
+
+每次读取本文件开始或恢复项目工作时，必须检查 [docs/handoffs/](docs/handoffs/) 的文件清单，并阅读与当前任务相关的最新交接文档。不能只依赖之前会话的记忆或本文件中的摘要。
+
+当前交接入口（更新于 2026-11-24；路径相对于仓库根目录）：
+
+| 优先级 / 主题 | 当前文档 | 状态 |
+| --- | --- | --- |
+| 当前任务：RDS → EMR HDFS 数据 Pipeline | [docs/handoffs/2026-11-24-rds-to-emr-hdfs-migration.md](docs/handoffs/2026-11-24-rds-to-emr-hdfs-migration.md) | 需求、环境检查与验证清单；实施待继续 |
+| 后续设计：Trader operational database 与 simulation warehouse | [docs/handoffs/2026-11-24-trader-operational-database-and-simulation-warehouse.md](docs/handoffs/2026-11-24-trader-operational-database-and-simulation-warehouse.md) | 设计提议；审批流程等决定尚未确认 |
+
+- 先按文件名日期查找新增交接，再核对正文时间戳、状态与明确的替代关系；同日有多份时按主题分别读取，不能把最后一个文件当作整个项目的唯一最新状态。
+- 用户当前明确指令优先；新交接中的已确认决定用于更新旧计划。较新的提议不自动成为已批准设计，也不自动扩大当前实施范围。遇到无法消解的冲突时明确指出。
+- 开始报告进度或执行任务前，核对交接引用的实际代码、测试与日志；交接文档不是实施完成或云端验证的证明。
+- 后续新增、更新或重命名交接文档时，同步维护本表、日期和相关链接，并注明旧文档是否被替代。交接统一放在 `docs/handoffs/`，不重新建立 `documents/` 或另一个 `agent.md`。
+
 **当前目标已明确；simulator、三个应用页面、Spark、warehouse 与 RAG 尚未实现。** 下文区分用户决定、拟实施设计和已有证据，不能把计划描述成已经完成的功能。
+
+**2026-11-24 当前阶段更新：先建立 RDS → Spark JDBC → Parquet → EMR HDFS → Spark SQL 历史数据 Pipeline。** 学校环境限定 1 Primary Node + 1 Core Node，不声称跨 Worker 分布式存储/计算。本阶段不开发 simulator、UI、warehouse 或 RAG，不创建新收费资源、不修改 RDS 原始数据。用户要求先将任务保存为下次访问的 [迁移交接 note](docs/handoffs/2026-11-24-rds-to-emr-hdfs-migration.md)；当前仅完成文档记录，代码与云端实施待继续。
+
+**后续 operational / warehouse 设计讨论（2026-11-24）：** 用户要求以 Trader 日常调整、版本、生效/撤销与运行活动建立规范化 operational database，并由业务记录和模拟输出派生面向 simulation 的独立 warehouse。已保存 [英文交接 note](docs/handoffs/2026-11-24-trader-operational-database-and-simulation-warehouse.md)，区分提交位置、实际生效回合、回放 session 和版本。表结构与事实粒度仍为提议，直接生效或审批后生效尚未决定；未实施 DDL/ETL，不改变先完成 HDFS Pipeline 的优先级。
 
 ## 1. 项目目标与范围
 
@@ -100,9 +120,9 @@
 
 - 按比赛处理有序事件；按状态聚合分布；按比赛起点、场景和模拟批次并行，单条模拟路径内部仍依赖前一步。
 - 共享可缓存的小型模型分布，不把每次滑杆操作变成一次全表扫描，不为凑规模重复制造计算。
-- 比较同一数据、算法、模拟预算下的单机与多节点耗时、吞吐量和资源成本。`local[*]` 或单机多个容器不是多机分布式证据。
+- 当前先实测同一数据与查询语义下的 MySQL / Spark SQL 性能；学校单 Core Node 环境不提供跨 Worker 加速证据。后续只有在资源允许且获得授权时才开展多 Worker 比较。`local[*]` 或单机多个容器不是多机分布式证据。
 - 查询多或能并行，不自动证明多机更快。课程要求可扩展处理，不要求声称单机绝对做不了。
-- S3、Redshift、EMR 不是课程指定必须产品；**暂不接 S3**，不默认新增付费资源或迁移 Atlas。
+- 课程未指定必须使用 S3、Redshift 或 EMR；用户现已选择 EMR on EC2 + HDFS 作为本阶段方案。**不接 S3**，不引入 Sqoop、Hive、Pig、Kafka，不默认新增付费资源或迁移 Atlas。EMR terminate 后 HDFS 数据可能丢失，必须保留 RDS 并确保可重跑。
 
 ## 6. Research / RAG 的边界
 
@@ -204,6 +224,8 @@ python scripts/collect_odds_to_mongodb.py --import-file data/collected/odds_mong
 
 ## 12. 下一步与本次整理记录
 
+**当前优先步骤（2026-11-24）：** 按迁移交接 note 检查 RDS 16 表/schema/索引及 EMR 条件，准备迁移与探索代码、离线测试和 EMR 命令；实际运行后交付完整性、HDFS block 位置及查询性能报告。以下为 Pipeline 完成后的产品路线，本轮不提前实施。
+
 1. **回合可行性**：先选一小批常规赛（约 100 场作为起始建议），重建回合和五项事件特征，核对逐节/最终比分、时间、球权及规则边界。
 2. **最小模拟内核**：建立条件经验分布、联合抽样、五项权重与有效期；从一个回合起点生成基准/场景对比，验证复现、归一化与规则处理。
 3. **最小操作闭环**：实现比赛回放 → 调整 → 比较 → 保存/撤销；RDS 存结构化状态，Atlas 存理由和证据文档。
@@ -231,6 +253,10 @@ python scripts/collect_odds_to_mongodb.py --import-file data/collected/odds_mong
 - SQLite 使用 `mode=ro` 与 `PRAGMA query_only=ON` 重新核对：2,349,588,480 bytes、16 表；game 65,698，play_by_play 13,592,899，player 4,815，team 30。game 日期范围仍为 1946-11-01 至 2023-06-12；未重新进行全量事件质量审计。
 - 本地历史成功日志仍记录赔率 14 场、新闻 10 篇且均有正文并曾验证入库；伤病 CSV 重新计数为 124 条记录、67 条球队提交状态、25 个比赛映射、1 个状态变化。未请求外部 API、连接云端或重新迁移。
 - 检查开始时 Word proposal 已有未提交修改，保留原样；最近本地 commit 为 `ba17c87`（2026-11-21）。本次不提交或推送，不据本地记录声称当前远端一致。
-- 下一步仍为小批常规赛回合重建与核对，再实现最小模拟内核；产品范围沿用现有三个页面与五项 Trader 调整。
+- 当次核对时下一步为小批常规赛回合重建；同日后续用户将优先级调整为先建设 RDS-to-HDFS Pipeline（见本文件顶部及迁移交接 note）。最终产品仍沿用三个页面与五项 Trader 调整。
 - 新增 `scripts/explore_nba_source.sql`：供用户在 RDS MySQL 原始历史库中逐段只读探索表结构、规模、球队、比赛与单场事件。数据库名由用户选择，未假定实际迁移库名；全量事件统计默认注释，并提示迁移未复制索引。`.gitignore` 仅为该 SQL 源文件增加例外。
 - 13 条数据查询通过本地只读 SQLite 查询计划核对表/列引用；MySQL 专属 metadata 查询未运行，未连接 RDS，不将该检查描述为 MySQL 实测通过。原有 Word 修改保留。
+
+### 2026-11-24 ??????
+
+- ? documents/ ????????? docs/handoffs/????????????????????????????????AGENTS.md ? README ?????? documents/ ????? proposal??????????????????????

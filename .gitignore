@@ -39,6 +39,7 @@ secrets.json
 *.db
 *.db-*
 *.sql
+!/scripts/explore_nba_source.sql
 *.zip
 ~$*
 /Project_Next_Steps.docx

@@ -1,6 +1,6 @@
 # Project Goals & Repository Guidelines
 
-目标整理日期：**2026-11-21，America/New_York**。本文件是本项目的目标、agent 执行指引和进度记录，继续维护本文件，不另建 `agent.md`。
+目标整理日期：**2026-11-21，America/New_York**；最近进度核对：**2026-11-24**。本文件是本项目的目标、agent 执行指引和进度记录，继续维护本文件，不另建 `agent.md`。
 
 **当前目标已明确；simulator、三个应用页面、Spark、warehouse 与 RAG 尚未实现。** 下文区分用户决定、拟实施设计和已有证据，不能把计划描述成已经完成的功能。
 
@@ -223,3 +223,14 @@ python scripts/collect_odds_to_mongodb.py --import-file data/collected/odds_mong
 - 用 Microsoft Word 实际打开、重新分页并更新页码，确认 **2 页**；检查导出预览的两页，正文与表格完整。Word 内容为拟实施方案，不宣称系统已经完成。
 - 生成和检查采用内联命令，不创建 Python 工具脚本；临时 PDF/PNG 预览检查后删除，不作为交付物。原始数据和本地参考演讲视频不提交。
 - 用户已授权本次文档提交并推送；发布完成以 GitHub `main` 与本地 commit 一致为准。本次不改业务代码、不运行采集或数据库迁移。
+
+### 2026-11-24 本地进度核对
+
+- 核对当前代码、测试、课程要求、metadata、采集状态日志及 Word proposal 正文。代码仍集中在数据检查、采集、伤病样本整理与历史迁移；未发现回合重建、模拟内核、三个 Streamlit 页面、Spark、warehouse、RAG 或应用部署实现。
+- 使用现有 `D:/Miniconda3/envs/msba/python.exe -B -m unittest discover -s tests -v`，24 项离线测试全部通过。测试覆盖采集/补传、去重、请求预算与失败处理，不代表模拟器或云端可用。
+- SQLite 使用 `mode=ro` 与 `PRAGMA query_only=ON` 重新核对：2,349,588,480 bytes、16 表；game 65,698，play_by_play 13,592,899，player 4,815，team 30。game 日期范围仍为 1946-11-01 至 2023-06-12；未重新进行全量事件质量审计。
+- 本地历史成功日志仍记录赔率 14 场、新闻 10 篇且均有正文并曾验证入库；伤病 CSV 重新计数为 124 条记录、67 条球队提交状态、25 个比赛映射、1 个状态变化。未请求外部 API、连接云端或重新迁移。
+- 检查开始时 Word proposal 已有未提交修改，保留原样；最近本地 commit 为 `ba17c87`（2026-11-21）。本次不提交或推送，不据本地记录声称当前远端一致。
+- 下一步仍为小批常规赛回合重建与核对，再实现最小模拟内核；产品范围沿用现有三个页面与五项 Trader 调整。
+- 新增 `scripts/explore_nba_source.sql`：供用户在 RDS MySQL 原始历史库中逐段只读探索表结构、规模、球队、比赛与单场事件。数据库名由用户选择，未假定实际迁移库名；全量事件统计默认注释，并提示迁移未复制索引。`.gitignore` 仅为该 SQL 源文件增加例外。
+- 13 条数据查询通过本地只读 SQLite 查询计划核对表/列引用；MySQL 专属 metadata 查询未运行，未连接 RDS，不将该检查描述为 MySQL 实测通过。原有 Word 修改保留。
